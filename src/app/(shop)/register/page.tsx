@@ -101,6 +101,102 @@ function getPasswordStrength(password: string): {
   return { score, label: "Strong", color: "bg-green-500" };
 }
 
+function getStepCircleClass(stepId: number, currentStep: number): string {
+  const base = "w-10 h-10 rounded-full flex items-center justify-center font-semibold transition-colors";
+  if (stepId < currentStep) return `${base} bg-green-500 text-white`;
+  if (stepId === currentStep) return `${base} bg-[#0052a1] text-white`;
+  return `${base} bg-gray-200 text-gray-500`;
+}
+
+function getStepNameClass(stepId: number, currentStep: number): string {
+  return `text-sm font-medium ${stepId <= currentStep ? "text-gray-900" : "text-gray-400"}`;
+}
+
+function getStepConnectorClass(stepId: number, currentStep: number): string {
+  return `w-16 sm:w-24 h-1 mx-2 rounded ${stepId < currentStep ? "bg-green-500" : "bg-gray-200"}`;
+}
+
+function getPasswordStrengthColorClass(label: string): string {
+  if (label === "Weak") return "text-red-500";
+  if (label === "Fair") return "text-yellow-600";
+  if (label === "Good") return "text-blue-500";
+  return "text-green-500";
+}
+
+function getInputClass(hasError: boolean): string {
+  const base = "pl-10 h-12";
+  if (hasError) return `${base} border-red-500 focus-visible:ring-red-500`;
+  return `${base} border-gray-300 focus-visible:ring-[#0052a1]`;
+}
+
+function getPasswordInputClass(hasError: boolean): string {
+  const base = "pl-10 pr-12 h-12";
+  if (hasError) return `${base} border-red-500 focus-visible:ring-red-500`;
+  return `${base} border-gray-300 focus-visible:ring-[#0052a1]`;
+}
+
+type PasswordRequirement = {
+  label: string;
+  met: boolean;
+};
+
+function getPasswordRequirements(password: string): PasswordRequirement[] {
+  return [
+    { label: "At least 8 characters", met: password.length >= 8 },
+    { label: "One uppercase letter", met: /[A-Z]/.test(password) },
+    { label: "One lowercase letter", met: /[a-z]/.test(password) },
+    { label: "One number", met: /[0-9]/.test(password) },
+  ];
+}
+
+function PasswordStrengthIndicator({ password }: { password: string }) {
+  if (!password) return null;
+
+  const passwordStrength = getPasswordStrength(password);
+
+  return (
+    <div className="mt-2">
+      <div className="flex items-center justify-between mb-1">
+        <span className="text-xs text-gray-500">Password strength:</span>
+        <span className={`text-xs font-medium ${getPasswordStrengthColorClass(passwordStrength.label)}`}>
+          {passwordStrength.label}
+        </span>
+      </div>
+      <div className="h-1.5 bg-gray-200 rounded-full overflow-hidden">
+        <div
+          className={`h-full transition-all duration-300 ${passwordStrength.color}`}
+          style={{ width: `${(passwordStrength.score / 6) * 100}%` }}
+        />
+      </div>
+    </div>
+  );
+}
+
+function PasswordRequirements({ password }: { password: string }) {
+  const requirements = getPasswordRequirements(password);
+
+  return (
+    <div className="p-4 bg-gray-50 rounded-lg">
+      <p className="text-sm font-medium text-gray-700 mb-2">Password requirements:</p>
+      <ul className="space-y-1 text-sm text-gray-600">
+        {requirements.map((req) => (
+          <li
+            key={req.label}
+            className={`flex items-center gap-2 ${req.met ? "text-green-600" : ""}`}
+          >
+            {req.met ? (
+              <Check className="w-4 h-4" />
+            ) : (
+              <span className="w-4 h-4 rounded-full border border-gray-300" />
+            )}
+            {req.label}
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
 export default function RegisterPage() {
   const router = useRouter();
   const { register: registerUser, isLoading } = useAuth();
@@ -135,7 +231,6 @@ export default function RegisterPage() {
   const password = watch("password");
   const acceptTerms = watch("acceptTerms");
   const subscribeNewsletter = watch("subscribeNewsletter");
-  const passwordStrength = getPasswordStrength(password || "");
 
   // Validate current step fields before proceeding
   const validateStep = async (step: number): Promise<boolean> => {
@@ -210,15 +305,7 @@ export default function RegisterPage() {
             {steps.map((step, index) => (
               <div key={step.id} className="flex items-center">
                 <div className="flex flex-col items-center">
-                  <div
-                    className={`w-10 h-10 rounded-full flex items-center justify-center font-semibold transition-colors ${
-                      step.id < currentStep
-                        ? "bg-green-500 text-white"
-                        : step.id === currentStep
-                        ? "bg-[#0052a1] text-white"
-                        : "bg-gray-200 text-gray-500"
-                    }`}
-                  >
+                  <div className={getStepCircleClass(step.id, currentStep)}>
                     {step.id < currentStep ? (
                       <Check className="w-5 h-5" />
                     ) : (
@@ -226,19 +313,13 @@ export default function RegisterPage() {
                     )}
                   </div>
                   <div className="mt-2 text-center hidden sm:block">
-                    <p className={`text-sm font-medium ${
-                      step.id <= currentStep ? "text-gray-900" : "text-gray-400"
-                    }`}>
+                    <p className={getStepNameClass(step.id, currentStep)}>
                       {step.name}
                     </p>
                   </div>
                 </div>
                 {index < steps.length - 1 && (
-                  <div
-                    className={`w-16 sm:w-24 h-1 mx-2 rounded ${
-                      step.id < currentStep ? "bg-green-500" : "bg-gray-200"
-                    }`}
-                  />
+                  <div className={getStepConnectorClass(step.id, currentStep)} />
                 )}
               </div>
             ))}
@@ -267,11 +348,7 @@ export default function RegisterPage() {
                     <Input
                       id="firstName"
                       placeholder="John"
-                      className={`pl-10 h-12 ${
-                        errors.firstName 
-                          ? "border-red-500 focus-visible:ring-red-500" 
-                          : "border-gray-300 focus-visible:ring-[#0052a1]"
-                      }`}
+                      className={getInputClass(!!errors.firstName)}
                       autoComplete="given-name"
                       {...register("firstName")}
                     />
@@ -293,11 +370,7 @@ export default function RegisterPage() {
                     <Input
                       id="lastName"
                       placeholder="Doe"
-                      className={`pl-10 h-12 ${
-                        errors.lastName 
-                          ? "border-red-500 focus-visible:ring-red-500" 
-                          : "border-gray-300 focus-visible:ring-[#0052a1]"
-                      }`}
+                      className={getInputClass(!!errors.lastName)}
                       autoComplete="family-name"
                       {...register("lastName")}
                     />
@@ -320,11 +393,7 @@ export default function RegisterPage() {
                       id="phone"
                       type="tel"
                       placeholder="+1 (555) 123-4567"
-                      className={`pl-10 h-12 ${
-                        errors.phone 
-                          ? "border-red-500 focus-visible:ring-red-500" 
-                          : "border-gray-300 focus-visible:ring-[#0052a1]"
-                      }`}
+                      className={getInputClass(!!errors.phone)}
                       autoComplete="tel"
                       {...register("phone")}
                     />
@@ -356,11 +425,7 @@ export default function RegisterPage() {
                       id="email"
                       type="email"
                       placeholder="you@example.com"
-                      className={`pl-10 h-12 ${
-                        errors.email 
-                          ? "border-red-500 focus-visible:ring-red-500" 
-                          : "border-gray-300 focus-visible:ring-[#0052a1]"
-                      }`}
+                      className={getInputClass(!!errors.email)}
                       autoComplete="email"
                       {...register("email")}
                     />
@@ -383,11 +448,7 @@ export default function RegisterPage() {
                       id="password"
                       type={showPassword ? "text" : "password"}
                       placeholder="Create a strong password"
-                      className={`pl-10 pr-12 h-12 ${
-                        errors.password 
-                          ? "border-red-500 focus-visible:ring-red-500" 
-                          : "border-gray-300 focus-visible:ring-[#0052a1]"
-                      }`}
+                      className={getPasswordInputClass(!!errors.password)}
                       autoComplete="new-password"
                       {...register("password")}
                     />
@@ -410,28 +471,7 @@ export default function RegisterPage() {
                     <p className="text-sm text-red-500">{errors.password.message}</p>
                   )}
                   
-                  {/* Password Strength Indicator */}
-                  {password && (
-                    <div className="mt-2">
-                      <div className="flex items-center justify-between mb-1">
-                        <span className="text-xs text-gray-500">Password strength:</span>
-                        <span className={`text-xs font-medium ${
-                          passwordStrength.label === "Weak" ? "text-red-500" :
-                          passwordStrength.label === "Fair" ? "text-yellow-600" :
-                          passwordStrength.label === "Good" ? "text-blue-500" :
-                          "text-green-500"
-                        }`}>
-                          {passwordStrength.label}
-                        </span>
-                      </div>
-                      <div className="h-1.5 bg-gray-200 rounded-full overflow-hidden">
-                        <div
-                          className={`h-full transition-all duration-300 ${passwordStrength.color}`}
-                          style={{ width: `${(passwordStrength.score / 6) * 100}%` }}
-                        />
-                      </div>
-                    </div>
-                  )}
+                  <PasswordStrengthIndicator password={password || ""} />
                 </div>
 
                 {/* Confirm Password */}
@@ -447,11 +487,7 @@ export default function RegisterPage() {
                       id="confirmPassword"
                       type={showConfirmPassword ? "text" : "password"}
                       placeholder="Confirm your password"
-                      className={`pl-10 pr-12 h-12 ${
-                        errors.confirmPassword 
-                          ? "border-red-500 focus-visible:ring-red-500" 
-                          : "border-gray-300 focus-visible:ring-[#0052a1]"
-                      }`}
+                      className={getPasswordInputClass(!!errors.confirmPassword)}
                       autoComplete="new-password"
                       {...register("confirmPassword")}
                     />
@@ -475,28 +511,7 @@ export default function RegisterPage() {
                   )}
                 </div>
 
-                {/* Password Requirements */}
-                <div className="p-4 bg-gray-50 rounded-lg">
-                  <p className="text-sm font-medium text-gray-700 mb-2">Password requirements:</p>
-                  <ul className="space-y-1 text-sm text-gray-600">
-                    <li className={`flex items-center gap-2 ${password?.length >= 8 ? "text-green-600" : ""}`}>
-                      {password?.length >= 8 ? <Check className="w-4 h-4" /> : <span className="w-4 h-4 rounded-full border border-gray-300" />}
-                      At least 8 characters
-                    </li>
-                    <li className={`flex items-center gap-2 ${/[A-Z]/.test(password || "") ? "text-green-600" : ""}`}>
-                      {/[A-Z]/.test(password || "") ? <Check className="w-4 h-4" /> : <span className="w-4 h-4 rounded-full border border-gray-300" />}
-                      One uppercase letter
-                    </li>
-                    <li className={`flex items-center gap-2 ${/[a-z]/.test(password || "") ? "text-green-600" : ""}`}>
-                      {/[a-z]/.test(password || "") ? <Check className="w-4 h-4" /> : <span className="w-4 h-4 rounded-full border border-gray-300" />}
-                      One lowercase letter
-                    </li>
-                    <li className={`flex items-center gap-2 ${/[0-9]/.test(password || "") ? "text-green-600" : ""}`}>
-                      {/[0-9]/.test(password || "") ? <Check className="w-4 h-4" /> : <span className="w-4 h-4 rounded-full border border-gray-300" />}
-                      One number
-                    </li>
-                  </ul>
-                </div>
+                <PasswordRequirements password={password || ""} />
               </div>
             )}
 

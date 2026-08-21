@@ -13,6 +13,162 @@ interface WishlistButtonProps {
   onToggle?: (isInWishlist: boolean) => void;
 }
 
+type Size = "sm" | "default" | "lg";
+
+const sizeClasses: Record<Size, string> = {
+  sm: "w-8 h-8",
+  default: "w-10 h-10",
+  lg: "w-12 h-12",
+};
+
+const iconSizes: Record<Size, string> = {
+  sm: "w-4 h-4",
+  default: "w-5 h-5",
+  lg: "w-6 h-6",
+};
+
+interface WishlistIconProps {
+  isInWishlist: boolean;
+  isLoading: boolean;
+  size: Size;
+}
+
+function WishlistIcon({ isInWishlist, isLoading, size }: WishlistIconProps) {
+  if (isLoading) {
+    return (
+      <Loader2
+        className={cn("animate-spin text-gray-400", iconSizes[size])}
+      />
+    );
+  }
+
+  return (
+    <Heart
+      className={cn(
+        iconSizes[size],
+        isInWishlist
+          ? "fill-red-500 text-red-500"
+          : "text-gray-400 hover:text-red-500"
+      )}
+    />
+  );
+}
+
+interface LoadingStateProps {
+  size: Size;
+  className?: string;
+}
+
+function LoadingState({ size, className }: LoadingStateProps) {
+  return (
+    <div
+      className={cn(
+        "rounded-full bg-white shadow-md flex items-center justify-center",
+        sizeClasses[size],
+        className
+      )}
+    >
+      <Loader2
+        className={cn("animate-spin text-gray-400", iconSizes[size])}
+      />
+    </div>
+  );
+}
+
+interface WishlistToggleButtonProps {
+  isInWishlist: boolean;
+  isLoading: boolean;
+  size: Size;
+  className?: string;
+  onClick: () => void;
+}
+
+function MinimalWishlistButton({
+  isInWishlist,
+  isLoading,
+  size,
+  className,
+  onClick,
+}: WishlistToggleButtonProps) {
+  return (
+    <button
+      onClick={onClick}
+      disabled={isLoading}
+      className={cn(
+        "p-1 hover:scale-110 transition-transform",
+        className
+      )}
+      aria-label={isInWishlist ? "Remove from wishlist" : "Add to wishlist"}
+    >
+      <WishlistIcon
+        isInWishlist={isInWishlist}
+        isLoading={isLoading}
+        size={size}
+      />
+    </button>
+  );
+}
+
+function ButtonWishlistButton({
+  isInWishlist,
+  isLoading,
+  size,
+  className,
+  onClick,
+}: WishlistToggleButtonProps) {
+  return (
+    <Button
+      variant={isInWishlist ? "default" : "outline"}
+      size={size}
+      onClick={onClick}
+      disabled={isLoading}
+      className={cn(
+        isInWishlist && "bg-red-500 hover:bg-red-600 border-red-500",
+        className
+      )}
+    >
+      {isLoading ? (
+        <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+      ) : (
+        <Heart
+          className={cn(
+            "w-4 h-4 mr-2",
+            isInWishlist && "fill-current"
+          )}
+        />
+      )}
+      {isInWishlist ? "Saved" : "Save to Wishlist"}
+    </Button>
+  );
+}
+
+function IconWishlistButton({
+  isInWishlist,
+  isLoading,
+  size,
+  className,
+  onClick,
+}: WishlistToggleButtonProps) {
+  return (
+    <button
+      onClick={onClick}
+      disabled={isLoading}
+      className={cn(
+        "rounded-full bg-white shadow-md flex items-center justify-center hover:scale-110 transition-transform",
+        sizeClasses[size],
+        className
+      )}
+      aria-label={isInWishlist ? "Remove from wishlist" : "Add to wishlist"}
+    >
+      <WishlistIcon
+        isInWishlist={isInWishlist}
+        isLoading={isLoading}
+        size={size}
+      />
+    </button>
+  );
+}
+
 export function WishlistButton({
   productId,
   variant = "icon",
@@ -69,108 +225,43 @@ export function WishlistButton({
     }
   };
 
-  const sizeClasses = {
-    sm: "w-8 h-8",
-    default: "w-10 h-10",
-    lg: "w-12 h-12",
-  };
-
-  const iconSizes = {
-    sm: "w-4 h-4",
-    default: "w-5 h-5",
-    lg: "w-6 h-6",
-  };
-
   if (isChecking) {
     return variant === "icon" ? (
-      <div className={cn(
-        "rounded-full bg-white shadow-md flex items-center justify-center",
-        sizeClasses[size],
-        className
-      )}>
-        <Loader2 className={cn("animate-spin text-gray-400", iconSizes[size])} />
-      </div>
+      <LoadingState size={size} className={className} />
     ) : null;
   }
 
   if (variant === "minimal") {
     return (
-      <button
+      <MinimalWishlistButton
+        isInWishlist={isInWishlist}
+        isLoading={isLoading}
+        size={size}
+        className={className}
         onClick={handleToggle}
-        disabled={isLoading}
-        className={cn(
-          "p-1 hover:scale-110 transition-transform",
-          className
-        )}
-        aria-label={isInWishlist ? "Remove from wishlist" : "Add to wishlist"}
-      >
-        {isLoading ? (
-          <Loader2 className={cn("animate-spin text-gray-400", iconSizes[size])} />
-        ) : (
-          <Heart
-            className={cn(
-              iconSizes[size],
-              isInWishlist
-                ? "fill-red-500 text-red-500"
-                : "text-gray-400 hover:text-red-500"
-            )}
-          />
-        )}
-      </button>
+      />
     );
   }
 
   if (variant === "button") {
     return (
-      <Button
-        variant={isInWishlist ? "default" : "outline"}
+      <ButtonWishlistButton
+        isInWishlist={isInWishlist}
+        isLoading={isLoading}
         size={size}
+        className={className}
         onClick={handleToggle}
-        disabled={isLoading}
-        className={cn(
-          isInWishlist && "bg-red-500 hover:bg-red-600 border-red-500",
-          className
-        )}
-      >
-        {isLoading ? (
-          <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-        ) : (
-          <Heart
-            className={cn(
-              "w-4 h-4 mr-2",
-              isInWishlist && "fill-current"
-            )}
-          />
-        )}
-        {isInWishlist ? "Saved" : "Save to Wishlist"}
-      </Button>
+      />
     );
   }
 
-  // Icon variant (default)
   return (
-    <button
+    <IconWishlistButton
+      isInWishlist={isInWishlist}
+      isLoading={isLoading}
+      size={size}
+      className={className}
       onClick={handleToggle}
-      disabled={isLoading}
-      className={cn(
-        "rounded-full bg-white shadow-md flex items-center justify-center hover:scale-110 transition-transform",
-        sizeClasses[size],
-        className
-      )}
-      aria-label={isInWishlist ? "Remove from wishlist" : "Add to wishlist"}
-    >
-      {isLoading ? (
-        <Loader2 className={cn("animate-spin text-gray-400", iconSizes[size])} />
-      ) : (
-        <Heart
-          className={cn(
-            iconSizes[size],
-            isInWishlist
-              ? "fill-red-500 text-red-500"
-              : "text-gray-400 hover:text-red-500"
-          )}
-        />
-      )}
-    </button>
+    />
   );
 }

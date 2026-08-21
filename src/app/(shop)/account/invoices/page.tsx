@@ -96,8 +96,8 @@ export default function InvoicesPage() {
       {/* Invoice List */}
       {isLoading ? (
         <div className="space-y-4">
-          {[...Array(3)].map((_, i) => (
-            <div key={i} className="h-24 bg-gray-100 rounded-xl animate-pulse" />
+          {["skeleton-1", "skeleton-2", "skeleton-3"].map((id) => (
+            <div key={id} className="h-24 bg-gray-100 rounded-xl animate-pulse" />
           ))}
         </div>
       ) : filteredInvoices.length > 0 ? (

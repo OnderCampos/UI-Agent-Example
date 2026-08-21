@@ -10,8 +10,8 @@ import type { WishlistItem, WishlistSummary } from "@/types/wishlist";
 
 interface WishlistItemCardProps {
   item: WishlistItem;
-  onRemove?: (itemId: string) => void;
-  onMoveToCart?: (itemId: string) => void;
+  onRemove?: (itemId: string) => Promise<void> | void;
+  onMoveToCart?: (itemId: string) => Promise<void> | void;
   className?: string;
 }
 
@@ -27,7 +27,8 @@ export function WishlistItemCard({
   const handleRemove = async () => {
     setIsRemoving(true);
     try {
-      await onRemove?.(item.id);
+      const result = onRemove?.(item.id);
+      if (result) await result;
     } finally {
       setIsRemoving(false);
     }
@@ -36,7 +37,8 @@ export function WishlistItemCard({
   const handleMoveToCart = async () => {
     setIsMoving(true);
     try {
-      await onMoveToCart?.(item.id);
+      const result = onMoveToCart?.(item.id);
+      if (result) await result;
     } finally {
       setIsMoving(false);
     }

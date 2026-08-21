@@ -2,9 +2,9 @@
 
 import { useState, Suspense } from "react";
 import Link from "next/link";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { Eye, EyeOff, Loader2, Lock, CheckCircle, AlertCircle, ArrowLeft, Check } from "lucide-react";
-import { useForm } from "react-hook-form";
+import { useForm, UseFormRegisterReturn } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 
@@ -30,14 +30,16 @@ const resetPasswordSchema = z.object({
 
 type ResetPasswordFormData = z.infer<typeof resetPasswordSchema>;
 
-// Password strength calculator
-function getPasswordStrength(password: string): {
+interface PasswordStrengthResult {
   score: number;
   label: string;
   color: string;
-} {
+}
+
+// Password strength calculator
+function getPasswordStrength(password: string): PasswordStrengthResult {
   let score = 0;
-  
+
   if (password.length >= 8) score++;
   if (password.length >= 12) score++;
   if (/[A-Z]/.test(password)) score++;
@@ -51,14 +53,197 @@ function getPasswordStrength(password: string): {
   return { score, label: "Strong", color: "bg-green-500" };
 }
 
+function getStrengthTextColor(label: string): string {
+  switch (label) {
+    case "Weak":
+      return "text-red-500";
+    case "Fair":
+      return "text-yellow-600";
+    case "Good":
+      return "text-blue-500";
+    default:
+      return "text-green-500";
+  }
+}
+
+function PasswordStrengthIndicator({ password }: { password: string }) {
+  if (!password) return null;
+
+  const strength = getPasswordStrength(password);
+  const textColor = getStrengthTextColor(strength.label);
+
+  return (
+    <div className="mt-2">
+      <div className="flex items-center justify-between mb-1">
+        <span className="text-xs text-gray-500">Password strength:</span>
+        <span className={`text-xs font-medium ${textColor}`}>
+          {strength.label}
+        </span>
+      </div>
+      <div className="h-1.5 bg-gray-200 rounded-full overflow-hidden">
+        <div
+          className={`h-full transition-all duration-300 ${strength.color}`}
+          style={{ width: `${(strength.score / 6) * 100}%` }}
+        />
+      </div>
+    </div>
+  );
+}
+
+function PasswordRequirement({
+  met,
+  label,
+}: {
+  met: boolean;
+  label: string;
+}) {
+  return (
+    <li className={`flex items-center gap-2 ${met ? "text-green-600" : ""}`}>
+      {met ? (
+        <Check className="w-4 h-4" />
+      ) : (
+        <span className="w-4 h-4 rounded-full border border-gray-300" />
+      )}
+      {label}
+    </li>
+  );
+}
+
+function PasswordRequirements({ password }: { password: string }) {
+  return (
+    <div className="p-4 bg-gray-50 rounded-lg">
+      <p className="text-sm font-medium text-gray-700 mb-2">Password requirements:</p>
+      <ul className="space-y-1 text-sm text-gray-600">
+        <PasswordRequirement met={password.length >= 8} label="At least 8 characters" />
+        <PasswordRequirement met={/[A-Z]/.test(password)} label="One uppercase letter" />
+        <PasswordRequirement met={/[a-z]/.test(password)} label="One lowercase letter" />
+        <PasswordRequirement met={/[0-9]/.test(password)} label="One number" />
+      </ul>
+    </div>
+  );
+}
+
+function InvalidTokenState() {
+  return (
+    <div className="min-h-[calc(100vh-200px)] flex items-center justify-center py-12 px-4">
+      <div className="w-full max-w-md text-center">
+        <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-6">
+          <AlertCircle className="w-8 h-8 text-red-600" />
+        </div>
+
+        <h1 className="text-2xl font-bold text-gray-900 mb-4">
+          Invalid Reset Link
+        </h1>
+
+        <p className="text-gray-600 mb-6">
+          This password reset link is invalid or has expired. Please request a new one.
+        </p>
+
+        <Link href="/forgot-password">
+          <Button className="bg-[#0052a1] hover:bg-[#003d7a]">
+            Request New Link
+          </Button>
+        </Link>
+      </div>
+    </div>
+  );
+}
+
+function SuccessState() {
+  return (
+    <div className="min-h-[calc(100vh-200px)] flex items-center justify-center py-12 px-4">
+      <div className="w-full max-w-md text-center">
+        <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
+          <CheckCircle className="w-8 h-8 text-green-600" />
+        </div>
+
+        <h1 className="text-2xl font-bold text-gray-900 mb-4">
+          Password Reset Successfully
+        </h1>
+
+        <p className="text-gray-600 mb-6">
+          Your password has been changed. You can now sign in with your new password.
+        </p>
+
+        <Link href="/login">
+          <Button className="bg-[#0052a1] hover:bg-[#003d7a]">
+            Sign In
+          </Button>
+        </Link>
+      </div>
+    </div>
+  );
+}
+
+interface PasswordInputProps {
+  id: string;
+  label: string;
+  error?: string;
+  placeholder: string;
+  showPassword: boolean;
+  onToggleVisibility: () => void;
+  registration: UseFormRegisterReturn;
+}
+
+function PasswordInput({
+  id,
+  label,
+  error,
+  placeholder,
+  showPassword,
+  onToggleVisibility,
+  registration,
+}: PasswordInputProps) {
+  const inputClasses = `pl-10 pr-12 h-12 ${
+    error
+      ? "border-red-500 focus-visible:ring-red-500"
+      : "border-gray-300 focus-visible:ring-[#0052a1]"
+  }`;
+
+  return (
+    <div className="space-y-2">
+      <Label htmlFor={id} className="text-gray-700 font-medium">
+        {label}
+      </Label>
+      <div className="relative">
+        <div className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
+          <Lock className="h-5 w-5" />
+        </div>
+        <Input
+          id={id}
+          type={showPassword ? "text" : "password"}
+          placeholder={placeholder}
+          className={inputClasses}
+          autoComplete="new-password"
+          {...registration}
+        />
+        <Button
+          type="button"
+          variant="ghost"
+          size="icon"
+          className="absolute right-0 top-0 h-full px-3 hover:bg-transparent"
+          onClick={onToggleVisibility}
+          tabIndex={-1}
+        >
+          {showPassword ? (
+            <EyeOff className="h-5 w-5 text-gray-400" />
+          ) : (
+            <Eye className="h-5 w-5 text-gray-400" />
+          )}
+        </Button>
+      </div>
+      {error && <p className="text-sm text-red-500">{error}</p>}
+    </div>
+  );
+}
+
 function ResetPasswordForm() {
-  const _router = useRouter();
   const searchParams = useSearchParams();
   const { resetPassword } = useAuth();
   const { toast } = useToast();
-  
+
   const token = searchParams.get("token");
-  
+
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -73,66 +258,19 @@ function ResetPasswordForm() {
     resolver: zodResolver(resetPasswordSchema),
   });
 
-  const password = watch("password");
-  const passwordStrength = getPasswordStrength(password || "");
+  const password = watch("password") || "";
 
-  // Invalid or missing token
   if (!token) {
-    return (
-      <div className="min-h-[calc(100vh-200px)] flex items-center justify-center py-12 px-4">
-        <div className="w-full max-w-md text-center">
-          <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-6">
-            <AlertCircle className="w-8 h-8 text-red-600" />
-          </div>
-
-          <h1 className="text-2xl font-bold text-gray-900 mb-4">
-            Invalid Reset Link
-          </h1>
-          
-          <p className="text-gray-600 mb-6">
-            This password reset link is invalid or has expired. Please request a new one.
-          </p>
-
-          <Link href="/forgot-password">
-            <Button className="bg-[#0052a1] hover:bg-[#003d7a]">
-              Request New Link
-            </Button>
-          </Link>
-        </div>
-      </div>
-    );
+    return <InvalidTokenState />;
   }
 
-  // Success state
   if (isSuccess) {
-    return (
-      <div className="min-h-[calc(100vh-200px)] flex items-center justify-center py-12 px-4">
-        <div className="w-full max-w-md text-center">
-          <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
-            <CheckCircle className="w-8 h-8 text-green-600" />
-          </div>
-
-          <h1 className="text-2xl font-bold text-gray-900 mb-4">
-            Password Reset Successfully
-          </h1>
-          
-          <p className="text-gray-600 mb-6">
-            Your password has been changed. You can now sign in with your new password.
-          </p>
-
-          <Link href="/login">
-            <Button className="bg-[#0052a1] hover:bg-[#003d7a]">
-              Sign In
-            </Button>
-          </Link>
-        </div>
-      </div>
-    );
+    return <SuccessState />;
   }
 
   const onSubmit = async (data: ResetPasswordFormData) => {
     setIsSubmitting(true);
-    
+
     try {
       await resetPassword(token, data.password);
       setIsSuccess(true);
@@ -174,131 +312,31 @@ function ResetPasswordForm() {
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
             {/* New Password */}
             <div className="space-y-2">
-              <Label htmlFor="password" className="text-gray-700 font-medium">
-                New Password
-              </Label>
-              <div className="relative">
-                <div className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
-                  <Lock className="h-5 w-5" />
-                </div>
-                <Input
-                  id="password"
-                  type={showPassword ? "text" : "password"}
-                  placeholder="Enter new password"
-                  className={`pl-10 pr-12 h-12 ${
-                    errors.password 
-                      ? "border-red-500 focus-visible:ring-red-500" 
-                      : "border-gray-300 focus-visible:ring-[#0052a1]"
-                  }`}
-                  autoComplete="new-password"
-                  {...register("password")}
-                />
-                <Button
-                  type="button"
-                  variant="ghost"
-                  size="icon"
-                  className="absolute right-0 top-0 h-full px-3 hover:bg-transparent"
-                  onClick={() => setShowPassword(!showPassword)}
-                  tabIndex={-1}
-                >
-                  {showPassword ? (
-                    <EyeOff className="h-5 w-5 text-gray-400" />
-                  ) : (
-                    <Eye className="h-5 w-5 text-gray-400" />
-                  )}
-                </Button>
-              </div>
-              {errors.password && (
-                <p className="text-sm text-red-500">{errors.password.message}</p>
-              )}
-              
-              {/* Password Strength Indicator */}
-              {password && (
-                <div className="mt-2">
-                  <div className="flex items-center justify-between mb-1">
-                    <span className="text-xs text-gray-500">Password strength:</span>
-                    <span className={`text-xs font-medium ${
-                      passwordStrength.label === "Weak" ? "text-red-500" :
-                      passwordStrength.label === "Fair" ? "text-yellow-600" :
-                      passwordStrength.label === "Good" ? "text-blue-500" :
-                      "text-green-500"
-                    }`}>
-                      {passwordStrength.label}
-                    </span>
-                  </div>
-                  <div className="h-1.5 bg-gray-200 rounded-full overflow-hidden">
-                    <div
-                      className={`h-full transition-all duration-300 ${passwordStrength.color}`}
-                      style={{ width: `${(passwordStrength.score / 6) * 100}%` }}
-                    />
-                  </div>
-                </div>
-              )}
+              <PasswordInput
+                id="password"
+                label="New Password"
+                error={errors.password?.message}
+                placeholder="Enter new password"
+                showPassword={showPassword}
+                onToggleVisibility={() => setShowPassword((prev) => !prev)}
+                registration={register("password")}
+              />
+              <PasswordStrengthIndicator password={password} />
             </div>
 
             {/* Confirm Password */}
-            <div className="space-y-2">
-              <Label htmlFor="confirmPassword" className="text-gray-700 font-medium">
-                Confirm New Password
-              </Label>
-              <div className="relative">
-                <div className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
-                  <Lock className="h-5 w-5" />
-                </div>
-                <Input
-                  id="confirmPassword"
-                  type={showConfirmPassword ? "text" : "password"}
-                  placeholder="Confirm new password"
-                  className={`pl-10 pr-12 h-12 ${
-                    errors.confirmPassword 
-                      ? "border-red-500 focus-visible:ring-red-500" 
-                      : "border-gray-300 focus-visible:ring-[#0052a1]"
-                  }`}
-                  autoComplete="new-password"
-                  {...register("confirmPassword")}
-                />
-                <Button
-                  type="button"
-                  variant="ghost"
-                  size="icon"
-                  className="absolute right-0 top-0 h-full px-3 hover:bg-transparent"
-                  onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                  tabIndex={-1}
-                >
-                  {showConfirmPassword ? (
-                    <EyeOff className="h-5 w-5 text-gray-400" />
-                  ) : (
-                    <Eye className="h-5 w-5 text-gray-400" />
-                  )}
-                </Button>
-              </div>
-              {errors.confirmPassword && (
-                <p className="text-sm text-red-500">{errors.confirmPassword.message}</p>
-              )}
-            </div>
+            <PasswordInput
+              id="confirmPassword"
+              label="Confirm New Password"
+              error={errors.confirmPassword?.message}
+              placeholder="Confirm new password"
+              showPassword={showConfirmPassword}
+              onToggleVisibility={() => setShowConfirmPassword((prev) => !prev)}
+              registration={register("confirmPassword")}
+            />
 
             {/* Password Requirements */}
-            <div className="p-4 bg-gray-50 rounded-lg">
-              <p className="text-sm font-medium text-gray-700 mb-2">Password requirements:</p>
-              <ul className="space-y-1 text-sm text-gray-600">
-                <li className={`flex items-center gap-2 ${password?.length >= 8 ? "text-green-600" : ""}`}>
-                  {password?.length >= 8 ? <Check className="w-4 h-4" /> : <span className="w-4 h-4 rounded-full border border-gray-300" />}
-                  At least 8 characters
-                </li>
-                <li className={`flex items-center gap-2 ${/[A-Z]/.test(password || "") ? "text-green-600" : ""}`}>
-                  {/[A-Z]/.test(password || "") ? <Check className="w-4 h-4" /> : <span className="w-4 h-4 rounded-full border border-gray-300" />}
-                  One uppercase letter
-                </li>
-                <li className={`flex items-center gap-2 ${/[a-z]/.test(password || "") ? "text-green-600" : ""}`}>
-                  {/[a-z]/.test(password || "") ? <Check className="w-4 h-4" /> : <span className="w-4 h-4 rounded-full border border-gray-300" />}
-                  One lowercase letter
-                </li>
-                <li className={`flex items-center gap-2 ${/[0-9]/.test(password || "") ? "text-green-600" : ""}`}>
-                  {/[0-9]/.test(password || "") ? <Check className="w-4 h-4" /> : <span className="w-4 h-4 rounded-full border border-gray-300" />}
-                  One number
-                </li>
-              </ul>
-            </div>
+            <PasswordRequirements password={password} />
 
             {/* Submit Button */}
             <Button

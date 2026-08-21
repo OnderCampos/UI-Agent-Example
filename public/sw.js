@@ -409,7 +409,7 @@ function openDB() {
   return new Promise((resolve, reject) => {
     const request = indexedDB.open('pricesmart-sw', 1);
     
-    request.onerror = () => reject(request.error);
+    request.onerror = () => reject(new Error(request.error?.message || 'IndexedDB open failed'));
     request.onsuccess = () => resolve(request.result);
     
     request.onupgradeneeded = (event) => {
@@ -426,7 +426,7 @@ async function getFromIndexedDB(id) {
     const store = tx.objectStore('pending');
     const request = store.get(id);
     
-    request.onerror = () => reject(request.error);
+    request.onerror = () => reject(new Error(request.error?.message || 'IndexedDB get failed'));
     request.onsuccess = () => resolve(request.result?.data);
   });
 }
@@ -438,7 +438,7 @@ async function deleteFromIndexedDB(id) {
     const store = tx.objectStore('pending');
     const request = store.delete(id);
     
-    request.onerror = () => reject(request.error);
+    request.onerror = () => reject(new Error(request.error?.message || 'IndexedDB delete failed'));
     request.onsuccess = () => resolve();
   });
 }
