@@ -1,0 +1,126 @@
+{
+  "pages": {
+    "home": {
+      "id": "page-home",
+      "slug": "home",
+      "title": "Welcome to Our Store",
+      "description": "Discover amazing products at great prices",
+      "sections": [
+        {
+          "type": "hero",
+          "data": {
+            "title": "Summer Collection 2024",
+            "subtitle": "Discover our latest products with exclusive discounts",
+            "ctaText": "Shop Now",
+            "ctaLink": "/products",
+            "alignment": "center"
+          }
+        },
+        {
+          "type": "featuredProducts",
+          "data": {
+            "title": "Featured Products",
+            "subtitle": "Handpicked for you",
+            "productIds": ["prod-001", "prod-002", "prod-003", "prod-004"],
+            "layout": "grid",
+            "maxItems": 4
+          }
+        },
+        {
+          "type": "categoryGrid",
+          "data": {
+            "title": "Shop by Category",
+            "categories": [
+              { "id": "cat-electronics", "name": "Electronics", "link": "/categories/electronics" },
+              { "id": "cat-audio", "name": "Audio", "link": "/categories/audio" },
+              { "id": "cat-gaming", "name": "Gaming", "link": "/categories/gaming" }
+            ],
+            "columns": 3
+          }
+        }
+      ]
+    },
+    "about": {
+      "id": "page-about",
+      "slug": "about",
+      "title": "About Us",
+      "description": "Learn more about our company and mission",
+      "content": "<h1>About Our Company</h1><p>We are dedicated to providing the best products at competitive prices.</p><p>Founded in 2020, we have grown to serve customers worldwide with a commitment to quality and customer satisfaction.</p>"
+    }
+  },
+  "banners": [
+    {
+      "id": "banner-summer",
+      "title": "Summer Sale",
+      "subtitle": "Up to 50% off on selected items",
+      "image": "https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=1200",
+      "link": "/sale",
+      "backgroundColor": "#ff6b6b",
+      "textColor": "#ffffff",
+      "isActive": true,
+      "position": 1
+    },
+    {
+      "id": "banner-new",
+      "title": "New Arrivals",
+      "subtitle": "Check out our latest products",
+      "image": "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=1200",
+      "link": "/new-arrivals",
+      "isActive": true,
+      "position": 2
+    }
+  ],
+  "navigation": {
+    "main": [
+      { "id": "nav-home", "label": "Home", "href": "/" },
+      { 
+        "id": "nav-products", 
+        "label": "Products", 
+        "href": "/products",
+        "children": [
+          { "id": "nav-electronics", "label": "Electronics", "href": "/categories/electronics" },
+          { "id": "nav-audio", "label": "Audio", "href": "/categories/audio" },
+          { "id": "nav-gaming", "label": "Gaming", "href": "/categories/gaming" }
+        ]
+      },
+      { "id": "nav-sale", "label": "Sale", "href": "/sale", "badge": "HOT" },
+      { "id": "nav-about", "label": "About", "href": "/about" }
+    ],
+    "footer": [
+      {
+        "id": "footer-support",
+        "label": "Customer Support",
+        "children": [
+          { "id": "f-help", "label": "Help Center", "href": "/help" },
+          { "id": "f-shipping", "label": "Shipping Info", "href": "/shipping" },
+          { "id": "f-returns", "label": "Returns", "href": "/returns" }
+        ]
+      },
+      {
+        "id": "footer-company",
+        "label": "Company",
+        "children": [
+          { "id": "f-about", "label": "About Us", "href": "/about" },
+          { "id": "f-careers", "label": "Careers", "href": "/careers" },
+          { "id": "f-press", "label": "Press", "href": "/press" }
+        ]
+      }
+    ]
+  },
+  "siteSettings": {
+    "siteName": "Ecommerce Store",
+    "siteDescription": "Your one-stop shop for amazing products",
+    "contactEmail": "support@store.com",
+    "contactPhone": "+1 (555) 123-4567",
+    "socialLinks": [
+      { "platform": "facebook", "url": "https://facebook.com/store" },
+      { "platform": "twitter", "url": "https://twitter.com/store" },
+      { "platform": "instagram", "url": "https://instagram.com/store" }
+    ],
+    "announcementBar": {
+      "text": "Free shipping on orders over $50!",
+      "link": "/shipping",
+      "isActive": true
+    }
+  }
+}

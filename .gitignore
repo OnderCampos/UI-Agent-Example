@@ -1,0 +1,6 @@
+# OpenMemory - IDE/Assistant specific rules
+.cursor/rules/openmemory.mdc
+node_modules
+.agents/*
+.cursor/*
+.next/*

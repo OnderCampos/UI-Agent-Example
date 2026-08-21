@@ -1,0 +1,206 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* PriceSmart Design Tokens */
+:root {
+  /* Primary Brand Colors - PriceSmart Blue */
+  --ps-blue: #0052a1;
+  --ps-blue-dark: #003d7a;
+  --ps-blue-darker: #002d5c;
+  --ps-blue-light: #0066cc;
+  --ps-blue-lighter: #e6f0fa;
+  
+  /* Accent Colors - PriceSmart Amber/Gold */
+  --ps-amber: #f5a623;
+  --ps-amber-dark: #d4900f;
+  --ps-amber-light: #ffc233;
+  
+  /* Neutral Colors */
+  --ps-white: #ffffff;
+  --ps-gray-50: #fafafa;
+  --ps-gray-100: #f5f5f5;
+  --ps-gray-200: #eeeeee;
+  --ps-gray-300: #e0e0e0;
+  --ps-gray-400: #bdbdbd;
+  --ps-gray-500: #9e9e9e;
+  --ps-gray-600: #757575;
+  --ps-gray-700: #616161;
+  --ps-gray-800: #424242;
+  --ps-gray-900: #212121;
+  --ps-black: #000000;
+  
+  /* Footer */
+  --ps-navy: #1a1a2e;
+  
+  /* Semantic Colors */
+  --ps-success: #4caf50;
+  --ps-warning: #ff9800;
+  --ps-error: #f44336;
+  --ps-info: #2196f3;
+  
+  /* Shadcn variables */
+  --background: 0 0% 100%;
+  --foreground: 222.2 84% 4.9%;
+  --card: 0 0% 100%;
+  --card-foreground: 222.2 84% 4.9%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 222.2 84% 4.9%;
+  --primary: 207 100% 32%; /* PriceSmart Blue */
+  --primary-foreground: 0 0% 100%;
+  --secondary: 39 91% 55%; /* PriceSmart Amber */
+  --secondary-foreground: 0 0% 100%;
+  --muted: 210 40% 96.1%;
+  --muted-foreground: 215.4 16.3% 46.9%;
+  --accent: 39 91% 55%;
+  --accent-foreground: 0 0% 100%;
+  --destructive: 0 84.2% 60.2%;
+  --destructive-foreground: 210 40% 98%;
+  --border: 214.3 31.8% 91.4%;
+  --input: 214.3 31.8% 91.4%;
+  --ring: 207 100% 32%;
+  --radius: 0.5rem;
+}
+
+.dark {
+  --background: 222.2 84% 4.9%;
+  --foreground: 210 40% 98%;
+  --card: 222.2 84% 4.9%;
+  --card-foreground: 210 40% 98%;
+  --popover: 222.2 84% 4.9%;
+  --popover-foreground: 210 40% 98%;
+  --primary: 207 100% 50%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 39 91% 55%;
+  --secondary-foreground: 0 0% 100%;
+  --muted: 217.2 32.6% 17.5%;
+  --muted-foreground: 215 20.2% 65.1%;
+  --accent: 39 91% 55%;
+  --accent-foreground: 0 0% 100%;
+  --destructive: 0 62.8% 30.6%;
+  --destructive-foreground: 210 40% 98%;
+  --border: 217.2 32.6% 17.5%;
+  --input: 217.2 32.6% 17.5%;
+  --ring: 207 100% 50%;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  }
+}
+
+@layer components {
+  /* PriceSmart Button Styles */
+  .btn-pricesmart {
+    @apply inline-flex items-center justify-center font-semibold rounded-lg transition-all duration-200;
+  }
+  
+  .btn-pricesmart-primary {
+    background-color: var(--ps-blue);
+    color: var(--ps-white);
+  }
+  
+  .btn-pricesmart-primary:hover {
+    background-color: var(--ps-blue-dark);
+  }
+  
+  .btn-pricesmart-secondary {
+    background-color: var(--ps-amber);
+    color: var(--ps-white);
+  }
+  
+  .btn-pricesmart-secondary:hover {
+    background-color: var(--ps-amber-dark);
+  }
+  
+  /* PriceSmart Card Styles */
+  .card-pricesmart {
+    @apply bg-white rounded-xl border border-gray-200 overflow-hidden transition-shadow duration-300;
+  }
+  
+  .card-pricesmart:hover {
+    @apply shadow-lg;
+  }
+  
+  /* PriceSmart Category Pill */
+  .category-pill {
+    background-color: var(--ps-blue);
+    @apply text-white px-5 py-2.5 rounded-full text-sm font-medium transition-colors;
+  }
+  
+  .category-pill:hover {
+    background-color: var(--ps-blue-dark);
+  }
+  
+  /* Custom scrollbar hiding for category pills */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  
+  /* Video Player Container */
+  .video-container {
+    @apply relative w-full aspect-video bg-black rounded-xl overflow-hidden;
+  }
+  
+  .video-thumbnail {
+    @apply absolute inset-0 bg-cover bg-center;
+  }
+  
+  .video-play-button {
+    @apply absolute inset-0 flex items-center justify-center bg-black/30 transition-colors hover:bg-black/40;
+  }
+  
+  .video-play-icon {
+    @apply w-20 h-20 rounded-full bg-white/90 flex items-center justify-center shadow-xl;
+  }
+}
+
+@layer utilities {
+  /* PriceSmart specific utilities */
+  .bg-ps-blue {
+    background-color: var(--ps-blue);
+  }
+  
+  .bg-ps-blue-dark {
+    background-color: var(--ps-blue-dark);
+  }
+  
+  .bg-ps-amber {
+    background-color: var(--ps-amber);
+  }
+  
+  .text-ps-blue {
+    color: var(--ps-blue);
+  }
+  
+  .text-ps-amber {
+    color: var(--ps-amber);
+  }
+  
+  .border-ps-blue {
+    border-color: var(--ps-blue);
+  }
+  
+  /* Gradient backgrounds */
+  .bg-gradient-ps {
+    background: linear-gradient(135deg, var(--ps-blue) 0%, var(--ps-blue-dark) 100%);
+  }
+  
+  /* Text gradient */
+  .text-gradient-ps {
+    background: linear-gradient(135deg, var(--ps-blue) 0%, var(--ps-blue-light) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+}

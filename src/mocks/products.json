@@ -1,0 +1,181 @@
+{
+  "products": [
+    {
+      "id": "prod-001",
+      "sku": "WH-1000XM5",
+      "name": "Premium Wireless Headphones",
+      "slug": "premium-wireless-headphones",
+      "description": "Experience crystal-clear audio with our premium wireless headphones. Featuring active noise cancellation, 30-hour battery life, and ultra-comfortable ear cushions for all-day listening.",
+      "shortDescription": "Crystal-clear audio with active noise cancellation",
+      "brand": "AudioTech",
+      "price": 29999,
+      "compareAtPrice": 34999,
+      "currency": "USD",
+      "image": "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=800",
+      "images": [
+        "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=800",
+        "https://images.unsplash.com/photo-1484704849700-f032a568e944?w=800"
+      ],
+      "categories": ["Electronics", "Audio"],
+      "categoryIds": ["cat-electronics", "cat-audio"],
+      "inStock": true,
+      "quantity": 50,
+      "attributes": {
+        "color": "Black",
+        "wireless": true,
+        "noiseCancelling": true,
+        "batteryLife": 30
+      }
+    },
+    {
+      "id": "prod-002",
+      "sku": "WC-PAD-001",
+      "name": "Wireless Charging Pad",
+      "slug": "wireless-charging-pad",
+      "description": "Fast wireless charging for all Qi-enabled devices. Sleek design with LED indicator and overheat protection.",
+      "shortDescription": "Fast wireless charging for all devices",
+      "brand": "PowerUp",
+      "price": 3999,
+      "currency": "USD",
+      "image": "https://images.unsplash.com/photo-1586953208448-b95a79798f07?w=800",
+      "images": ["https://images.unsplash.com/photo-1586953208448-b95a79798f07?w=800"],
+      "categories": ["Electronics", "Accessories"],
+      "categoryIds": ["cat-electronics", "cat-accessories"],
+      "inStock": true,
+      "quantity": 100,
+      "attributes": {
+        "wattage": 15,
+        "fastCharging": true
+      }
+    },
+    {
+      "id": "prod-003",
+      "sku": "KB-MECH-001",
+      "name": "Mechanical Gaming Keyboard",
+      "slug": "mechanical-gaming-keyboard",
+      "description": "RGB backlit mechanical keyboard with Cherry MX switches. Features programmable macros and dedicated media controls.",
+      "shortDescription": "RGB mechanical keyboard for gamers",
+      "brand": "GamePro",
+      "price": 14999,
+      "compareAtPrice": 17999,
+      "currency": "USD",
+      "image": "https://images.unsplash.com/photo-1511467687858-23d96c32e4ae?w=800",
+      "images": ["https://images.unsplash.com/photo-1511467687858-23d96c32e4ae?w=800"],
+      "categories": ["Electronics", "Gaming"],
+      "categoryIds": ["cat-electronics", "cat-gaming"],
+      "inStock": true,
+      "quantity": 30,
+      "attributes": {
+        "switchType": "Cherry MX Red",
+        "rgb": true,
+        "wireless": false
+      }
+    },
+    {
+      "id": "prod-004",
+      "sku": "WATCH-SMART-001",
+      "name": "Smart Watch Pro",
+      "slug": "smart-watch-pro",
+      "description": "Advanced fitness tracking, heart rate monitoring, and GPS. Water resistant up to 50m with 7-day battery life.",
+      "shortDescription": "Advanced fitness and health tracking",
+      "brand": "TechWear",
+      "price": 24999,
+      "currency": "USD",
+      "image": "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=800",
+      "images": ["https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=800"],
+      "categories": ["Electronics", "Wearables"],
+      "categoryIds": ["cat-electronics", "cat-wearables"],
+      "inStock": true,
+      "quantity": 25,
+      "attributes": {
+        "waterResistant": true,
+        "gps": true,
+        "heartRateMonitor": true
+      }
+    },
+    {
+      "id": "prod-005",
+      "sku": "SPEAKER-BT-001",
+      "name": "Portable Bluetooth Speaker",
+      "slug": "portable-bluetooth-speaker",
+      "description": "Powerful 360-degree sound in a compact, waterproof design. 20-hour battery life with built-in microphone for calls.",
+      "shortDescription": "Portable speaker with 360-degree sound",
+      "brand": "SoundMax",
+      "price": 7999,
+      "currency": "USD",
+      "image": "https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?w=800",
+      "images": ["https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?w=800"],
+      "categories": ["Electronics", "Audio"],
+      "categoryIds": ["cat-electronics", "cat-audio"],
+      "inStock": true,
+      "quantity": 75,
+      "attributes": {
+        "waterproof": true,
+        "batteryLife": 20
+      }
+    },
+    {
+      "id": "prod-006",
+      "sku": "MOUSE-WIRELESS-001",
+      "name": "Ergonomic Wireless Mouse",
+      "slug": "ergonomic-wireless-mouse",
+      "description": "Designed for comfort with vertical grip. Silent clicks and precision tracking for productivity.",
+      "shortDescription": "Comfortable vertical design for all-day use",
+      "brand": "ErgoTech",
+      "price": 4999,
+      "currency": "USD",
+      "image": "https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?w=800",
+      "images": ["https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?w=800"],
+      "categories": ["Electronics", "Accessories"],
+      "categoryIds": ["cat-electronics", "cat-accessories"],
+      "inStock": false,
+      "quantity": 0,
+      "attributes": {
+        "wireless": true,
+        "ergonomic": true,
+        "dpi": 4000
+      }
+    }
+  ],
+  "categories": [
+    {
+      "id": "cat-electronics",
+      "name": "Electronics",
+      "slug": "electronics",
+      "description": "Electronic devices and gadgets",
+      "productCount": 150
+    },
+    {
+      "id": "cat-audio",
+      "name": "Audio",
+      "slug": "audio",
+      "description": "Headphones, speakers, and audio equipment",
+      "parentId": "cat-electronics",
+      "productCount": 45
+    },
+    {
+      "id": "cat-gaming",
+      "name": "Gaming",
+      "slug": "gaming",
+      "description": "Gaming peripherals and accessories",
+      "parentId": "cat-electronics",
+      "productCount": 30
+    },
+    {
+      "id": "cat-wearables",
+      "name": "Wearables",
+      "slug": "wearables",
+      "description": "Smartwatches and fitness trackers",
+      "parentId": "cat-electronics",
+      "productCount": 25
+    },
+    {
+      "id": "cat-accessories",
+      "name": "Accessories",
+      "slug": "accessories",
+      "description": "Cables, chargers, and other accessories",
+      "parentId": "cat-electronics",
+      "productCount": 50
+    }
+  ]
+}
