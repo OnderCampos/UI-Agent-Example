@@ -4,6 +4,31 @@ This catalog documents the views and reusable components that make up the genera
 
 ## Views
 
+### Membership Search
+
+- **File path:** `src/app/(shop)/membership/page.tsx`
+- **Reference image:** `1777781280776-hz85g27aqjj.jpeg`
+- **Purpose:** Provide club staff with a starting point to register a new membership, view pending processes, or locate an existing member profile before creating a duplicate.
+- **Main sections:**
+  1. **Context selectors** — Fixed club location and country dropdowns in the top-right (Miraflores / Guatemala / English).
+  2. **Decorative brand bar** — Solid PriceSmart blue bar directly under the global header.
+  3. **Action cards** — Two large cards for "New Membership" and "Pending process".
+  4. **Search section** — Heading, descriptive text, search input, and "Search Membership" action.
+- **Reused components:**
+  - `Button` (`src/components/ui/button.tsx`) — search action.
+  - `Input` (`src/components/ui/input.tsx`) — search field.
+  - `Card` / `CardContent` (`src/components/ui/card.tsx`) — action card containers.
+- **New reusable components:**
+  - `ActionCard` — local helper for the icon + title action cards.
+- **Important props / state:**
+  - `query` controls the search input value.
+  - `isSearching` simulates search submission feedback.
+  - `selectedCountry` and `selectedClub` hold the contextual selectors.
+  - `isCountryOpen` and `isClubOpen` toggle the dropdown menus.
+- **How to reuse:**
+  - The `ActionCard` pattern can be extracted for any hub page with large action tiles.
+  - The contextual club/country selectors can be promoted to a shared header accessory component for membership or admin flows.
+
 ### New Membership Registration
 
 - **File path:** `src/app/(shop)/membership/new/page.tsx`
