@@ -62,7 +62,7 @@ This catalog documents the views and reusable components that make up the genera
 - **Purpose:** Allow club staff or members to review and complete personal data, contact information, address, and secondary memberships for a new PriceSmart membership before proceeding to payment.
 - **Main sections:**
   1. **Page header** — "New membership" title and "Capture Member ID" action.
-  2. **Stepper sidebar** — Two-step wizard (Membership data → Payment).
+  2. **Stepper sidebar** — Two-step wizard (Membership data → Payment) via `MembershipStepper`.
   3. **Personal data** — Member photo, ID type/number, membership type, abbreviation, names, gender, date of birth, occupation.
   4. **Contact** — Email (with declined option), mobile/home phones, notification preference.
   5. **Address** — Street address, country, state, city.
@@ -73,6 +73,7 @@ This catalog documents the views and reusable components that make up the genera
   - `Input` (`src/components/ui/input.tsx`) — editable contact/address fields.
   - `Label` (`src/components/ui/label.tsx`) — field labels.
   - `Separator` (`src/components/ui/separator.tsx`) — section dividers.
+  - `MembershipStepper` (`src/components/features/membership/membership-stepper.tsx`) — wizard step indicator.
   - `Header` / `Footer` — provided by the `(shop)` layout.
 - **New reusable components:**
   - `ReadOnlyField` — local helper for label/value display in read mode.
@@ -85,6 +86,38 @@ This catalog documents the views and reusable components that make up the genera
   - The wizard stepper pattern can be extracted for future multi-step flows.
   - The inline read/edit field pattern can be reused for any review-and-edit form.
   - The sticky action footer can be reused for forms with prominent primary actions.
+
+### New Secondary Membership
+
+- **File path:** `src/app/(shop)/membership/secondary/page.tsx`
+- **Reference image:** `1777781280362-0m1yd6qajlo.jpeg`
+- **Purpose:** Allow club staff to add a new secondary membership linked to an existing primary member by capturing personal data, contact information, and address details.
+- **Main sections:**
+  1. **Primary member header** — "Nicolas Treviño" with "Primary membership" subtitle.
+  2. **Page header** — "New secondary membership" title and "Capture Member ID" action.
+  3. **Stepper sidebar** — Two-step wizard (Membership data → Payment) via `MembershipStepper`.
+  4. **Personal data** — Photo placeholder with "Take photo", ID Type, ID Number, Membership type, Abbreviation, First Name, Last Name, Gender, Date of birth, Occupation.
+  5. **Contact** — Email address with "Send code" and decline checkbox, mobile phone number with "Send code" and decline checkbox, home phone number, Notifications.
+  6. **Address** — "Same address as primary member" checkbox, Address, Country, State, City.
+  7. **Sticky footer** — Go back home, Save changes, Previous, and Add member actions.
+- **Reused components:**
+  - `Button` (`src/components/ui/button.tsx`) — primary and outline actions.
+  - `Input` (`src/components/ui/input.tsx`) — text, email, telephone, and date inputs.
+  - `Label` (`src/components/ui/label.tsx`) — field labels.
+  - `Checkbox` (`src/components/ui/checkbox.tsx`) — decline and same-address checkboxes.
+  - `Separator` (`src/components/ui/separator.tsx`) — section dividers.
+  - `MembershipStepper` (`src/components/features/membership/membership-stepper.tsx`) — wizard step indicator.
+  - `SelectField` (`src/components/features/membership/select-field.tsx`) — dropdown inputs.
+  - `FormSection` (`src/components/features/membership/form-section.tsx`) — titled form section with icon.
+  - `Header` / `Footer` — provided by the `(shop)` layout.
+- **Important props / state:**
+  - `formData` object holds all editable secondary membership fields including `emailDeclined`, `mobilePhoneDeclined`, and `sameAddressAsPrimary`.
+  - `isSaving` simulates save feedback.
+- **How to reuse:**
+  - `SelectField` can be reused for any styled native dropdown across forms.
+  - `FormSection` provides a consistent section heading pattern for long forms.
+  - `MembershipStepper` is shared with the primary membership flow.
+  - The decline-checkbox pattern can be extracted for any field with opt-out logic.
 
 ## Reusable Components
 
@@ -118,6 +151,47 @@ This catalog documents the views and reusable components that make up the genera
 - **Important props:** `orientation`, `className`.
 - **States:** Default.
 - **Usage in this view:** Horizontal dividers between Personal data, Contact, Address, and Secondary memberships.
+
+### Checkbox
+
+- **File path:** `src/components/ui/checkbox.tsx`
+- **Responsibility:** Accessible checkbox control based on Radix UI.
+- **Important props:** `checked`, `onCheckedChange`, `disabled`.
+- **Usage in this view:** Decline-to-provide toggles and "same address as primary member".
+
+### MembershipStepper
+
+- **File path:** `src/components/features/membership/membership-stepper.tsx`
+- **Responsibility:** Vertical numbered stepper for membership wizard flows.
+- **Important props:**
+  - `steps: MembershipStep[]` — ordered list of steps.
+  - `currentStepId: number` — currently active step.
+  - `className?: string` — optional root styling.
+- **States:** Active (filled dark blue), completed (filled blue), upcoming (gray outline).
+- **Usage in this view:** Shared by `NewMembershipPage` and `NewSecondaryMembershipPage`.
+
+### SelectField
+
+- **File path:** `src/components/features/membership/select-field.tsx`
+- **Responsibility:** Styled native `<select>` wrapper with label, placeholder, optional error, and chevron icon.
+- **Important props:**
+  - `label?: React.ReactNode` — field label.
+  - `options?: SelectOption[]` — selectable values.
+  - `placeholder?: string` — default option text.
+  - `onChange?: (value: string) => void` — value change handler.
+  - `error?: string` — validation message.
+- **States:** Default, focus, disabled, error.
+- **Usage in this view:** All dropdown fields on the secondary membership page.
+
+### FormSection
+
+- **File path:** `src/components/features/membership/form-section.tsx`
+- **Responsibility:** Consistent section header with icon and title for long forms.
+- **Important props:**
+  - `icon: LucideIcon` — section icon.
+  - `title: string` — section title.
+  - `children: React.ReactNode` — section content.
+- **Usage in this view:** Personal data, Contact, and Address sections.
 
 ### VerifyMembershipDialog
 

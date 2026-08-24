@@ -20,8 +20,10 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
+import { MembershipStepper } from "@/components/features/membership/membership-stepper";
+import type { MembershipStep } from "@/components/features/membership/membership-stepper";
 
-const membershipSteps = [
+const membershipSteps: MembershipStep[] = [
   { id: 1, name: "Membership data", href: "/membership/new" },
   { id: 2, name: "Payment", href: "/membership/new/payment" },
 ];
@@ -125,42 +127,10 @@ export default function NewMembershipPage() {
         <div className="flex flex-col lg:flex-row gap-8">
           {/* Stepper Sidebar */}
           <aside className="lg:w-64 flex-shrink-0">
-            <nav className="space-y-2">
-              {membershipSteps.map((step, index) => {
-                const isActive = step.id === 1;
-                const isCompleted = false;
-
-                return (
-                  <div key={step.id} className="flex items-start gap-3">
-                    <div className="flex flex-col items-center">
-                      <div
-                        className={cn(
-                          "w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold",
-                          isActive
-                            ? "bg-[#003d7a] text-white"
-                            : isCompleted
-                              ? "bg-[#0052a1] text-white"
-                              : "bg-gray-200 text-gray-500"
-                        )}
-                      >
-                        {step.id}
-                      </div>
-                      {index < membershipSteps.length - 1 && (
-                        <div className="w-0.5 h-8 bg-gray-200 mt-1" />
-                      )}
-                    </div>
-                    <span
-                      className={cn(
-                        "text-sm font-medium pt-1.5",
-                        isActive ? "text-[#003d7a]" : "text-gray-500"
-                      )}
-                    >
-                      {step.name}
-                    </span>
-                  </div>
-                );
-              })}
-            </nav>
+            <MembershipStepper
+              steps={membershipSteps}
+              currentStepId={1}
+            />
           </aside>
 
           {/* Main Form */}
