@@ -72,3 +72,19 @@ export {
   CountrySelector,
   LocaleSelector,
 } from "./i18n";
+
+// Membership registration components
+export {
+  MembershipDataView,
+  PersonalDataSection,
+  ContactSection,
+  AddressSection,
+  SecondaryMembershipsSection,
+  Stepper,
+} from "./membership-registration";
+
+// Membership search components
+export {
+  MembershipActionCard,
+  MembershipSearchForm,
+} from "./membership-search";
