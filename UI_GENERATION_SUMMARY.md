@@ -4,6 +4,18 @@ This document catalogs the views and reusable UI components implemented for the 
 
 ## Views
 
+### Membership Hub
+
+- **File path:** `src/app/(shop)/membership/page.tsx`
+- **Purpose:** Entry point for membership operations, allowing staff to create a new membership, view pending processes, or search for an existing member before creating a new profile.
+- **Main sections:**
+  - Blue sub-header brand bar.
+  - Two large action cards for "New Membership" and "Pending process".
+  - Divider separating actions from the search section.
+  - `MembershipSearchForm` centered on the page.
+- **Reused components:** `MembershipActionCard`, `MembershipSearchForm`.
+- **New reusable components:** `MembershipActionCard`, `MembershipSearchForm`.
+
 ### New Membership Registration
 
 - **File path:** `src/app/(shop)/membership/new/page.tsx`
@@ -17,6 +29,29 @@ This document catalogs the views and reusable UI components implemented for the 
 - **New reusable components:** `MembershipRegistrationForm`, `SecondaryMembershipCard`.
 
 ## Reusable Components
+
+### MembershipActionCard
+
+- **File path:** `src/components/features/membership/membership-action-card.tsx`
+- **Responsibility:** Renders a large, tappable card with a circular icon and label for primary membership actions.
+- **Important props:**
+  - `icon: LucideIcon` — icon displayed inside the circle.
+  - `label: string` — card text.
+  - `variant?: "filled" | "outlined"` — visual treatment.
+  - `onClick?: () => void` — click handler.
+- **Supported states:** Default, hover, and disabled via button semantics.
+- **How to reuse:** Use in any dashboard or hub view that needs prominent action tiles.
+
+### MembershipSearchForm
+
+- **File path:** `src/components/features/membership/membership-search-form.tsx`
+- **Responsibility:** Provides a centered search experience for locating an existing membership profile by name, phone, email, or membership ID.
+- **Important props:**
+  - `onSearch?: (query: string) => void` — triggered on form submit.
+  - `isLoading?: boolean` — disables submit and shows "Searching...".
+  - `title?`, `description?`, `placeholder?`, `submitLabel?` — customizable text.
+- **Supported states:** Empty query (disabled submit), filled query, loading.
+- **How to reuse:** Drop into any view that needs to find a member record.
 
 ### MembershipRegistrationForm
 
@@ -55,9 +90,12 @@ This document catalogs the views and reusable UI components implemented for the 
   - `MembershipCardBack`
   - `MembershipRegistrationForm`
   - `SecondaryMembershipCard`
+  - `MembershipActionCard`
+  - `MembershipSearchForm`
 
 ## Design Notes
 
 - Color palette follows existing PriceSmart tokens (`--ps-blue`, `--ps-blue-dark`, `--ps-amber`).
 - Uses existing `Button`, `Input`, `Label`, and `Separator` UI primitives.
-- Layout built with Tailwind CSS utility classes and the existing `container`/`max-w-6xl` page width convention.
+- Layout built with Tailwind CSS utility classes and the existing `container` page width convention.
+- New route constants added to `APP_ROUTES` for `/membership/new` and `/membership/pending`.
