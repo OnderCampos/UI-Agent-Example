@@ -4,6 +4,23 @@ This catalog documents the views and reusable components that make up the PriceS
 
 ## Views
 
+### Membership Search
+
+- **File:** `src/app/(shop)/membership/page.tsx`
+- **Purpose:** Landing page for membership management where staff can start a new membership registration, view pending membership processes, or search for an existing member profile before creating a new membership.
+- **Sections:**
+  1. Top action bar with the PriceSmart logo on the left and location, country, and language selectors on the right.
+  2. Two large action cards: "New Membership" and "Pending process".
+  3. Horizontal divider.
+  4. Search form with a centered heading, helper text, a large search input, and a submit button.
+- **Reused components:** `Button`, `Input` from `@/components/ui`, `AnimatedIcon` from `@/components/ui/animated-icon`, `MembershipActionCard` from `@/components/features/membership`.
+- **New reusable components introduced in this view:** none (all new UI elements are covered by the shared `MembershipActionCard` component below).
+- **Important props / state:**
+  - `query`: controlled value of the search input.
+  - `isSearching`: toggles the submit button loading state.
+  - `handleSearch`: validates non-empty queries and simulates an async membership lookup.
+- **Future reuse:** The search form layout and action-card pattern can be reused for other staff-facing lookups by importing `MembershipActionCard`.
+
 ### New Membership Registration
 
 - **File:** `src/app/(shop)/membership/new/page.tsx`
@@ -32,8 +49,13 @@ This catalog documents the views and reusable components that make up the PriceS
 ### Shadcn UI Components (existing)
 
 - `Button` (`src/components/ui/button.tsx`) — primary action and outline variants used throughout the application.
+- `Input` (`src/components/ui/input.tsx`) — form text input used in the membership search form.
 - `Separator` (`src/components/ui/separator.tsx`) — used to visually divide form sections.
-- `Card`, `Input`, `Label`, `Form` and other primitives in `src/components/ui` are available for future form editing modes.
+- `Card`, `Label`, `Form` and other primitives in `src/components/ui` are available for future form editing modes.
+
+### Animated Icon Component (existing)
+
+- `AnimatedIcon` (`src/components/ui/animated-icon.tsx`) — wrapper around Lucide icons with motion presets; used for the loading state on the membership search button.
 
 ### Layout Components (existing)
 
@@ -41,10 +63,37 @@ This catalog documents the views and reusable components that make up the PriceS
 - `Footer` (`src/components/layout/footer.tsx`) — site footer with links and social actions.
 - `ShopLayout` (`src/app/(shop)/layout.tsx`) — wraps shop pages with `Header` and `Footer`.
 
-### Feature Components (existing)
+### Feature Components
 
-- `MembershipCard` / `MembershipCardBack` (`src/components/features/membership/membership-card.tsx`) — digital membership card visuals used in the account membership page.
-- `CheckoutProgress` (`src/components/features/checkout/checkout-progress.tsx`) — checkout step indicator (shipping/payment/review), not used on this page because the membership registration has its own two-step stepper.
+#### MembershipActionCard
+
+- **File:** `src/components/features/membership/membership-action-card.tsx`
+- **Purpose:** Large clickable card used to surface primary membership actions such as starting a new membership or opening pending processes.
+- **Responsibility:** Renders an icon inside a circular border, a label, and consistent hover/focus styling.
+- **Important props:**
+  - `icon`: React node displayed inside the circular border.
+  - `label`: action text shown next to the icon.
+  - `onClick`: click handler for the action.
+  - `variant`: `"default" | "alert"` for visual emphasis (currently maps to the same blue styling and can be extended).
+  - `className`: optional additional utility classes.
+- **Supported states:** default, hover, focus-visible, and disabled via parent `Button` or controlled logic.
+- **How to reuse:** Import from `@/components/features/membership` and provide an icon and label; useful for any membership-related dashboard or action grid.
+
+#### MembershipCard / MembershipCardBack
+
+- **File:** `src/components/features/membership/membership-card.tsx`
+- **Purpose:** Digital membership card visuals used in the account membership page.
+- **Responsibility:** Renders a branded front/back membership card with member details, barcode visualization, status overlay, and expiration information.
+- **Important props:**
+  - `membership`: `UserMembership` object with member ID, type, tier, status, expiration date, and points.
+  - `memberName`: member name displayed on the front card.
+- **Supported states:** active, expiring soon, expired, and status overlay for non-active memberships.
+- **How to reuse:** Import from `@/components/features/membership` and pass a membership object and member name; useful on account/membership pages and wallet views.
+
+#### CheckoutProgress
+
+- **File:** `src/components/features/checkout/checkout-progress.tsx`
+- **Purpose:** Checkout step indicator (shipping/payment/review), not used on the membership pages because the membership registration has its own two-step stepper.
 
 ## Design System
 
