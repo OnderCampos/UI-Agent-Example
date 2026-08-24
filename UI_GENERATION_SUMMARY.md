@@ -48,6 +48,18 @@ This document catalogs the views and reusable UI components implemented for the 
   - Centered card with a success icon, confirmation message, and "Continue" button.
 - **Reused components:** `Button`.
 
+### New Secondary Membership
+
+- **File path:** `src/app/(shop)/membership/secondary/page.tsx`
+- **Purpose:** Allows staff to add a new secondary membership linked to a primary member, collecting personal data, contact information, and address details.
+- **Main sections:**
+  - Page header showing the primary member name and membership type.
+  - Vertical stepper showing "Membership data" (active) and "Payment".
+  - Section header with "New secondary membership" title and "Capture Member ID" action.
+  - `SecondaryMemberRegistrationForm` containing Personal data, Contact, Address, and action buttons.
+- **Reused components:** `Button`, `SecondaryMemberRegistrationForm`.
+- **New reusable components:** `SecondaryMemberRegistrationForm`.
+
 ## Reusable Components
 
 ### MembershipActionCard
@@ -130,6 +142,20 @@ This document catalogs the views and reusable UI components implemented for the 
 - **Supported states:** Some members pending (Done disabled), all members verified (Done enabled), dialog open/closed.
 - **How to reuse:** Drop into any flow that needs to confirm multiple members before continuing. It can be rendered from a page backdrop or inside another view.
 
+### SecondaryMemberRegistrationForm
+
+- **File path:** `src/components/features/membership/secondary-member-registration-form.tsx`
+- **Responsibility:** Renders an editable form for adding a new secondary household member, organized into Personal data, Contact, Address, and action buttons.
+- **Important props:**
+  - `initialData?: Partial<SecondaryMemberRegistrationData>` — optional pre-filled values.
+  - `onSave?: (data) => void` — triggered by "Save changes".
+  - `onAddMember?: (data) => void` — triggered by "Add member".
+  - `onGoHome?: () => void` — triggered by "Go back home".
+  - `onPrevious?: () => void` — triggered by "Previous".
+  - `onCaptureMemberId?: () => void` — optional hook for capture action.
+- **Supported states:** Empty form, partially filled form, declines email/mobile checkboxes disabling corresponding fields, "Same address as primary member" disabling address fields.
+- **How to reuse:** Import into any flow that registers an additional household member or secondary cardholder.
+
 ## Component Index Updates
 
 - `src/components/features/membership/index.ts` exports:
@@ -141,11 +167,13 @@ This document catalogs the views and reusable UI components implemented for the 
   - `MembershipSearchForm`
   - `MemberVerificationItem`
   - `VerifyMembershipsDialog`
+  - `SecondaryMemberRegistrationForm` (new)
+  - `SecondaryMemberRegistrationData` (type) (new)
 
 ## Design Notes
 
 - Color palette follows existing PriceSmart tokens (`--ps-blue`, `--ps-blue-dark`, `--ps-amber`).
 - Uses existing `Button`, `Input`, `Label`, `Separator`, and `Dialog` UI primitives.
 - Layout built with Tailwind CSS utility classes and the existing `container` page width convention.
-- New route constants added to `APP_ROUTES` for `/membership/new`, `/membership/pending`, `/membership/verify`, and `/membership/verify/done`.
+- New route constants added to `APP_ROUTES` for `/membership/new`, `/membership/secondary`, `/membership/pending`, `/membership/verify`, and `/membership/verify/done`.
 - A new CSS token `--ps-overlay` and utility `bg-ps-overlay` provide the slate backdrop used behind the verification modal.
