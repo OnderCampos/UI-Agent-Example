@@ -19,6 +19,10 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "images.unsplash.com", // Mock/placeholder images
       },
+      {
+        protocol: "https",
+        hostname: "i.pravatar.cc", // Placeholder avatars
+      },
     ],
   },
 
