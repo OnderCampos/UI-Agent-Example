@@ -38,6 +38,7 @@
   --ps-warning: #ff9800;
   --ps-error: #f44336;
   --ps-info: #2196f3;
+  --ps-overlay: #5a667c;
   
   /* Shadcn variables */
   --background: 0 0% 100%;
@@ -189,6 +190,10 @@
   
   .border-ps-blue {
     border-color: var(--ps-blue);
+  }
+
+  .bg-ps-overlay {
+    background-color: var(--ps-overlay);
   }
   
   /* Gradient backgrounds */

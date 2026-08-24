@@ -28,6 +28,26 @@ This document catalogs the views and reusable UI components implemented for the 
 - **Reused components:** `Button`, `MembershipRegistrationForm`.
 - **New reusable components:** `MembershipRegistrationForm`, `SecondaryMembershipCard`.
 
+### Verify Memberships
+
+- **File path:** `src/app/(shop)/membership/verify/page.tsx`
+- **Purpose:** Modal-style page for verifying each membership contact by sending a code and entering the received verification digits.
+- **Main sections:**
+  - Slate-colored full-screen backdrop.
+  - Centered `VerifyMembershipsDialog` containing the member list.
+  - "Done" button that becomes enabled once every member is verified.
+- **Reused components:** `VerifyMembershipsDialog`, `MemberVerificationItem`, `Button`.
+- **New reusable components:** `VerifyMembershipsDialog`, `MemberVerificationItem`.
+
+### Verify Memberships Done
+
+- **File path:** `src/app/(shop)/membership/verify/done/page.tsx`
+- **Purpose:** Success confirmation shown after all member contacts have been verified.
+- **Main sections:**
+  - Slate-colored full-screen backdrop.
+  - Centered card with a success icon, confirmation message, and "Continue" button.
+- **Reused components:** `Button`.
+
 ## Reusable Components
 
 ### MembershipActionCard
@@ -83,6 +103,33 @@ This document catalogs the views and reusable UI components implemented for the 
 - **Responsibility:** Visual digital membership card and its back side for the account membership page.
 - **How reused here:** Exported alongside new membership components from `src/components/features/membership/index.ts`; reused by the existing account membership page.
 
+### MemberVerificationItem
+
+- **File path:** `src/components/features/membership/member-verification-item.tsx`
+- **Responsibility:** Displays a single member's avatar, contact info, verification status, and a 4-digit (configurable) code entry form.
+- **Important props:**
+  - `id`, `firstName`, `lastName`, `contact`, `avatarUrl`
+  - `status: "verified" | "pending"`
+  - `codeLength?: number` — defaults to 4.
+  - `onVerify?: (id, code) => void` — triggered when the code is completed.
+  - `onResend?: (id) => void` — triggered by the "Resend code" link.
+- **Supported states:** Verified (green check + "Member verified" label), pending (amber warning + code inputs), empty/missing name fallback.
+- **How to reuse:** Use inside any member list that needs per-contact verification, such as onboarding, renewal, or KYC flows.
+
+### VerifyMembershipsDialog
+
+- **File path:** `src/components/features/membership/verify-memberships-dialog.tsx`
+- **Responsibility:** Full modal dialog that renders a list of `MemberVerificationItem`s and a primary "Done" action, tracking each member's verification state internally.
+- **Important props:**
+  - `open: boolean`
+  - `onOpenChange?: (open) => void`
+  - `members: MemberWithStatus[]` — list of members to verify.
+  - `onVerify?: (id, code) => void`
+  - `onResend?: (id) => void`
+  - `onDone?: () => void` — enabled only after all members are verified.
+- **Supported states:** Some members pending (Done disabled), all members verified (Done enabled), dialog open/closed.
+- **How to reuse:** Drop into any flow that needs to confirm multiple members before continuing. It can be rendered from a page backdrop or inside another view.
+
 ## Component Index Updates
 
 - `src/components/features/membership/index.ts` exports:
@@ -92,10 +139,13 @@ This document catalogs the views and reusable UI components implemented for the 
   - `SecondaryMembershipCard`
   - `MembershipActionCard`
   - `MembershipSearchForm`
+  - `MemberVerificationItem`
+  - `VerifyMembershipsDialog`
 
 ## Design Notes
 
 - Color palette follows existing PriceSmart tokens (`--ps-blue`, `--ps-blue-dark`, `--ps-amber`).
-- Uses existing `Button`, `Input`, `Label`, and `Separator` UI primitives.
+- Uses existing `Button`, `Input`, `Label`, `Separator`, and `Dialog` UI primitives.
 - Layout built with Tailwind CSS utility classes and the existing `container` page width convention.
-- New route constants added to `APP_ROUTES` for `/membership/new` and `/membership/pending`.
+- New route constants added to `APP_ROUTES` for `/membership/new`, `/membership/pending`, `/membership/verify`, and `/membership/verify/done`.
+- A new CSS token `--ps-overlay` and utility `bg-ps-overlay` provide the slate backdrop used behind the verification modal.

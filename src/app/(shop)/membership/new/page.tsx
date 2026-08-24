@@ -5,6 +5,7 @@ import { Camera, Check } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { MembershipRegistrationForm } from "@/components/features/membership";
+import { APP_ROUTES } from "@/lib/constants";
 
 const steps = [
   { id: 1, name: "Membership data" },
@@ -60,7 +61,7 @@ export default function NewMembershipPage() {
           type="button"
           variant="outline"
           className="border-[#0052a1] text-[#0052a1] hover:bg-[#0052a1]/5 h-11"
-          onClick={() => router.push("/membership/capture-id")}
+          onClick={() => router.push(APP_ROUTES.MEMBERSHIP + "/capture-id")}
         >
           <Camera className="w-4 h-4 mr-2" />
           Capture Member ID
@@ -116,10 +117,10 @@ export default function NewMembershipPage() {
             }}
             onPayment={(data) => {
               console.log("Proceed to payment", data);
-              router.push("/membership/payment");
+              router.push(APP_ROUTES.MEMBERSHIP + "/payment");
             }}
             onGoHome={() => router.push("/")}
-            onCaptureMemberId={() => router.push("/membership/capture-id")}
+            onCaptureMemberId={() => router.push(APP_ROUTES.MEMBERSHIP + "/capture-id")}
           />
         </div>
       </div>

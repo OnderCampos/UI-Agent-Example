@@ -133,6 +133,9 @@ export const APP_ROUTES = {
   ORDERS: "/orders",
   ORDER: (id: string) => `/orders/${id}`,
   MEMBERSHIP: "/membership",
+  NEW_MEMBERSHIP: "/membership/new",
+  PENDING_MEMBERSHIP: "/membership/pending",
+  VERIFY_MEMBERSHIP: "/membership/verify",
 } as const;
 
 // ============================================
