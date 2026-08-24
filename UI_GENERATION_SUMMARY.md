@@ -4,6 +4,29 @@ This catalog documents the views and reusable components that make up the PriceS
 
 ## Views
 
+### New Secondary Membership
+
+- **File:** `src/app/(shop)/membership/new/secondary/page.tsx`
+- **Purpose:** Allows a staff user to add a new secondary household membership linked to an existing primary member ("Nicolas Treviño").
+- **Sections:**
+  1. Top action bar with the PriceSmart logo, location, country, and language selectors.
+  2. Page header showing the primary member name, "Primary membership" label, "New secondary membership" title, and a "Capture Member ID" action.
+  3. Vertical stepper sidebar (Membership data → Payment).
+  4. Personal data section with member photo placeholder, "Take photo" link, select dropdowns, and text inputs for identity and demographic fields.
+  5. Contact section with email and mobile phone fields, "Send code" buttons, and decline checkboxes.
+  6. Address section with "Same address as primary member" checkbox and address/country/state/city fields.
+  7. Bottom action bar with "Go back home", "Save changes", "Previous", and "Add member" buttons.
+- **Reused components:** `Button`, `Checkbox`, `Input`, `Label`, `Separator` from `@/components/ui`, Lucide icons.
+- **New reusable components introduced in this view:**
+  - `FormSelect` (local): labeled dropdown with a chevron indicator and optional required marker.
+  - `FormInput` (local): labeled text input with optional required marker, placeholder, and type.
+  - `SectionTitle` (local): section heading with an icon and PriceSmart blue text.
+- **Important props / state:**
+  - `sameAddress`: controls the "Same address as primary member" checkbox.
+  - `emailDeclined`: controls whether the email field and "Send code" button are disabled.
+  - `mobileDeclined`: controls whether the mobile phone field and "Send code" button are disabled.
+- **Future reuse:** The local `FormSelect`, `FormInput`, and `SectionTitle` helpers can be promoted to `src/components/features/membership` or `src/components/ui` if additional membership forms need consistent labeled controls.
+
 ### Membership Search
 
 - **File:** `src/app/(shop)/membership/page.tsx`
