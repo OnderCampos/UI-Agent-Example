@@ -44,13 +44,34 @@ This catalog documents the views and reusable components that make up the PriceS
   - `onEdit` / `onRemove` handlers on secondary member cards (currently log to console).
 - **Future reuse:** The local helper components can be promoted to `src/components/features/membership` if additional membership forms need the same read-only review pattern or secondary-member listing.
 
+### Verify Memberships
+
+- **File:** `src/app/(shop)/membership/verify/page.tsx`
+- **Purpose:** Presents the membership verification modal where staff send codes to each member's registered contact and enter the returned verification codes.
+- **Sections:**
+  1. Modal header with a user-add icon, title "Verify memberships", description, and close action.
+  2. Scrollable list of members showing avatar, name, contact, status indicator, and either a verified badge or a 4-digit code entry field.
+  3. Bottom action bar with a full-width "Done" button.
+- **Reused components:** `Dialog`, `DialogContent`, `DialogHeader`, `DialogTitle`, `DialogDescription`, `DialogClose` from `@/components/ui/dialog`; `Button` from `@/components/ui/button`; `Input` from `@/components/ui/input`; Lucide icons.
+- **New reusable components introduced in this view:**
+  - `VerifyMembershipsDialog` (shared): the complete verification modal.
+  - `VerificationCodeInput` (internal): a 4-slot numeric code input with keyboard navigation and paste support.
+  - `VerifyMemberRow` (internal): renders a single member row with status and code entry.
+- **Important props / state:**
+  - `open` / `onOpenChange`: controls modal visibility.
+  - `members`: list of `VerificationMember` objects with `id`, optional `photoUrl`, `fullName`, `contact`, and `status` (`pending` | `sent` | `verified`).
+  - `onDone`: callback invoked when the "Done" button is clicked.
+  - `codes`: internal controlled state mapping member IDs to entered code strings.
+- **Future reuse:** Import `VerifyMembershipsDialog` from `@/components/features/membership` into any staff or account flow that needs to verify multiple members by contact code; the dialog can be controlled from a parent page or another modal.
+
 ## Reusable Components
 
 ### Shadcn UI Components (existing)
 
 - `Button` (`src/components/ui/button.tsx`) — primary action and outline variants used throughout the application.
-- `Input` (`src/components/ui/input.tsx`) — form text input used in the membership search form.
+- `Input` (`src/components/ui/input.tsx`) — form text input used in the membership search form and verification code slots.
 - `Separator` (`src/components/ui/separator.tsx`) — used to visually divide form sections.
+- `Dialog`, `DialogContent`, `DialogHeader`, `DialogTitle`, `DialogDescription`, `DialogClose` (`src/components/ui/dialog.tsx`) — accessible modal primitives used for the verification dialog.
 - `Card`, `Label`, `Form` and other primitives in `src/components/ui` are available for future form editing modes.
 
 ### Animated Icon Component (existing)
@@ -89,6 +110,28 @@ This catalog documents the views and reusable components that make up the PriceS
   - `memberName`: member name displayed on the front card.
 - **Supported states:** active, expiring soon, expired, and status overlay for non-active memberships.
 - **How to reuse:** Import from `@/components/features/membership` and pass a membership object and member name; useful on account/membership pages and wallet views.
+
+#### VerifyMembershipsDialog
+
+- **File:** `src/components/features/membership/verify-membership-dialog.tsx`
+- **Purpose:** Reusable modal for confirming memberships by sending and entering verification codes per member contact.
+- **Responsibility:**
+  - Renders a header with icon, title, description, and close button.
+  - Lists each member with avatar, name, contact, and status indicator.
+  - Provides a 4-digit numeric code input when verification is required.
+  - Displays a verified badge for already-verified members.
+  - Exposes a "Resend code" action for each pending/sent member.
+  - Ends with a primary "Done" action.
+- **Important props:**
+  - `open`: whether the dialog is visible.
+  - `onOpenChange`: callback invoked when the dialog open state changes.
+  - `members`: optional array of `VerificationMember`; falls back to representative sample data.
+  - `onDone`: optional callback when the user clicks "Done".
+- **Supported states:**
+  - `verified`: shows green check badge and "Member verified" text.
+  - `pending` / `sent`: shows warning indicator and enabled/disabled code input.
+  - Code input supports typing, backspace, arrow navigation, and paste.
+- **How to reuse:** Import `VerifyMembershipsDialog` from `@/components/features/membership` and control it with local state in any page or parent component. The exported `VerificationMember` and `VerificationStatus` types can be used to build the `members` prop.
 
 #### CheckoutProgress
 
