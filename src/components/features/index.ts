@@ -39,6 +39,13 @@ export { InvoiceCard, InvoiceListItem } from "./invoice/invoice-card";
 export { WishlistButton } from "./wishlist/wishlist-button";
 export { WishlistItemCard, WishlistSummaryCard } from "./wishlist/wishlist-card";
 
+// Membership components
+export {
+  MembershipCard,
+  MembershipCardBack,
+  NewMemberRegistration,
+} from "./membership";
+
 // Promotions components
 export {
   CountdownTimer,
