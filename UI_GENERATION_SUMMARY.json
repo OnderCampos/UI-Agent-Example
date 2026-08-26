@@ -1,0 +1,14 @@
+[
+  {
+    "relativePath": "src/components/features/membership/membership-registration-view.tsx",
+    "shortDescription": "Reusable membership registration review layout.",
+    "fullDescription": "Displays a pre-payment membership registration review with a left step rail, personal data, contact details, address information, secondary membership cards, and bottom action buttons. It is designed as a reusable membership feature view for registration and review flows, and includes support for section headers, compact detail rows, and secondary member action cards inspired by 1777781281647-hz7g5mgy2b8.jpeg.",
+    "isView": false
+  },
+  {
+    "relativePath": "src/app/(shop)/membership-registration/page.tsx",
+    "shortDescription": "New membership registration review screen.",
+    "fullDescription": "Renders the new membership page where users review entered membership data before continuing to payment. The screen uses the shared MembershipRegistrationView component and presents the title area, capture member ID action, membership data step navigation, profile summary, contact and address sections, secondary memberships, and footer actions for returning home, saving changes, or proceeding to payment.",
+    "isView": true
+  }
+]
