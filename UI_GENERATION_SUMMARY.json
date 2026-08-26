@@ -18,9 +18,21 @@
     "isView": false
   },
   {
+    "relativePath": "src/components/features/membership/membership-verification-dialog.tsx",
+    "shortDescription": "Membership verification modal with member code entry rows.",
+    "fullDescription": "Reusable membership verification dialog based on the 1777781279681-hbeprvw275k.jpeg reference. It displays a centered overlay with a verification summary, member rows showing avatars and contacts, verified and pending states, four-digit code entry placeholders, resend actions, and a final Done button for membership confirmation flows.",
+    "isView": false
+  },
+  {
+    "relativePath": "src/components/ui/dialog.tsx",
+    "shortDescription": "Shared dialog primitives with optional close control.",
+    "fullDescription": "Reusable Radix dialog wrappers used across overlay-based interfaces. DialogContent now supports an optional showCloseButton prop so modal compositions can either use the default shared close icon or provide a custom close treatment that better matches a specific design while keeping the same portal and overlay behavior.",
+    "isView": false
+  },
+  {
     "relativePath": "src/app/(shop)/account/membership/page.tsx",
-    "shortDescription": "Membership search and registration entry screen.",
-    "fullDescription": "Account membership view that introduces the membership workflow with prominent action cards for creating a new membership and checking pending processes. The screen uses the reusable MembershipLookupView component to match the provided reference with the search section and disabled search action for locating existing customer profiles.",
+    "shortDescription": "Membership verification overlay view.",
+    "fullDescription": "Account membership screen composed around the reusable MembershipVerificationDialog component. The view presents the membership confirmation overlay with registered contact methods, member verification status, pending code entry rows, and the final Done action while using the background only as modal context.",
     "isView": true
   }
 ]
