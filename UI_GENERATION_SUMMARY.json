@@ -1,0 +1,20 @@
+[
+  {
+    "relativePath": "src/components/features/membership/membership-card.tsx",
+    "shortDescription": "Digital membership card components.",
+    "fullDescription": "Reusable front and back membership card components that display PriceSmart membership identity, barcode styling, status overlays, expiration state, and points. They accept membership data and member name props so account and membership-related views can present the card in a consistent format.",
+    "isView": false
+  },
+  {
+    "relativePath": "src/components/features/membership/membership-registration-view.tsx",
+    "shortDescription": "Membership registration review layout.",
+    "fullDescription": "Reusable membership registration review component based on the 1777781281647-hz7g5mgy2b8.jpeg reference. It renders the new membership flow shell with step navigation, personal data, contact details, address information, secondary membership cards, and footer actions for saving changes or continuing to payment.",
+    "isView": false
+  },
+  {
+    "relativePath": "src/app/(shop)/account/membership/page.tsx",
+    "shortDescription": "New membership review screen.",
+    "fullDescription": "Account membership view that presents a new membership registration summary before payment. The screen uses the reusable MembershipRegistrationView component to show staged membership data, sectioned review content, and the final action row matching the provided reference layout.",
+    "isView": true
+  }
+]
