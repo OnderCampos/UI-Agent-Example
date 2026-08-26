@@ -1,0 +1,14 @@
+[
+  {
+    "relativePath": "src/components/features/membership/new-membership-review.tsx",
+    "shortDescription": "Reusable membership review screen composition for new registrations.",
+    "fullDescription": "Composes the new membership registration review interface shown before payment, including the step rail, personal data summary, contact details, address, secondary membership cards, top capture action, floating quick-action button, and footer actions. The component is structured from reusable section title, detail grid, and secondary member card primitives so future membership-related views can reuse the same review layout patterns from the reference image 1777781281647-hz7g5mgy2b8.jpeg.",
+    "isView": false
+  },
+  {
+    "relativePath": "src/app/(shop)/new-membership/page.tsx",
+    "shortDescription": "New membership review page before payment.",
+    "fullDescription": "Displays a full-page membership registration review for store staff or users to inspect personal data, contact information, address, and secondary memberships before continuing to payment. The view uses the shared NewMembershipReview component to keep the membership review presentation reusable across future onboarding or edit flows.",
+    "isView": true
+  }
+]
