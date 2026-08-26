@@ -1,0 +1,8 @@
+[
+  {
+    "relativePath": "src/app/(shop)/new-membership/page.tsx",
+    "shortDescription": "Membership registration review screen before payment.",
+    "fullDescription": "Implements a full new membership review view based on the provided reference image 1777781281647-hz7g5mgy2b8.jpeg. The screen includes a compact PriceSmart-style top bar, a left-side two-step progress rail, personal data summary with member photo, contact and address sections, secondary membership cards with edit/remove actions, and a footer action row with home, save, and payment buttons using the shared Button component.",
+    "isView": true
+  }
+]
