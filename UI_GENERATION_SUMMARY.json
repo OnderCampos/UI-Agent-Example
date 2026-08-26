@@ -4,5 +4,23 @@
     "shortDescription": "New membership registration review screen.",
     "fullDescription": "Implements a PriceSmart-styled new membership view based on reference image 1777781281647-hz7g5mgy2b8.jpeg. The screen includes a compact top brand bar, a left step sidebar for membership data and payment, personal data, contact, address, and secondary memberships sections, plus footer actions for going home, saving changes, and continuing to payment.",
     "isView": true
+  },
+  {
+    "relativePath": "src/components/features/membership/membership-dashboard-header.tsx",
+    "shortDescription": "Compact PriceSmart membership header bar.",
+    "fullDescription": "Reusable membership-area header that renders the dark brand bar, logo, store selector, country selector, and language selector used by membership-focused views. It is intended for streamlined operational screens that need the simplified two-row header instead of the main ecommerce site navigation.",
+    "isView": false
+  },
+  {
+    "relativePath": "src/components/features/membership/membership-action-tile.tsx",
+    "shortDescription": "Large membership action selection tile.",
+    "fullDescription": "Reusable action tile for membership workflows with a circular icon, bold title, and active or inactive visual state. It can be used on landing screens to present options such as creating a membership, reviewing pending processes, or similar membership service actions.",
+    "isView": false
+  },
+  {
+    "relativePath": "src/app/(shop)/membership/page.tsx",
+    "shortDescription": "Membership search and action landing screen.",
+    "fullDescription": "Implements the membership landing view based on reference image 1777781280776-hz85g27aqjj.jpeg. The screen uses the reusable membership dashboard header and action tiles, then presents a search section for locating an existing member by name, phone, email, or membership ID before starting a new membership process.",
+    "isView": true
   }
 ]
