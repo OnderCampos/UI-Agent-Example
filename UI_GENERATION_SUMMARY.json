@@ -28,5 +28,17 @@
     "shortDescription": "Membership verification modal view preview.",
     "fullDescription": "View that presents the membership verification overlay in context, showing a dimmed application backdrop and the shared MembershipVerificationDialog component centered on screen. It is used to review member contacts, show which member is already verified, and display code-entry rows for pending verifications.",
     "isView": true
+  },
+  {
+    "relativePath": "src/components/features/membership/secondary-membership-form.tsx",
+    "shortDescription": "Reusable secondary membership registration form.",
+    "fullDescription": "Reusable PriceSmart-style secondary membership form component for capturing a linked member under a primary account. It includes a branded header, membership step rail, personal data section with photo placeholder, contact rows with send-code actions and opt-out checkboxes, address inputs with a same-as-primary option, and footer navigation buttons. The form is suitable for onboarding or editing secondary members and matches the reference image 1777781280362-0m1yd6qajlo.jpeg.",
+    "isView": false
+  },
+  {
+    "relativePath": "src/app/(shop)/account/membership/page.tsx",
+    "shortDescription": "Secondary membership creation screen.",
+    "fullDescription": "View for adding a new secondary membership connected to an existing primary member. The screen shows the primary member identity, a capture-member-ID action, a detailed registration form divided into personal data, contact, and address sections, plus footer actions for returning home, saving changes, going to the previous step, or adding the member. It uses the shared SecondaryMembershipForm component for the complete layout.",
+    "isView": true
   }
 ]
