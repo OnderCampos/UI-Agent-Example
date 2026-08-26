@@ -1,0 +1,8 @@
+[
+  {
+    "relativePath": "src/app/(shop)/new-membership/page.tsx",
+    "shortDescription": "New membership registration review screen.",
+    "fullDescription": "View for reviewing a new membership before payment. It presents a two-step progress sidebar, personal data with member photo, contact information, address details, secondary memberships cards with edit and remove actions, and a footer action bar with home, save, and payment buttons. The layout is styled to match the referenced membership registration image and uses the shared Button component.",
+    "isView": true
+  }
+]
