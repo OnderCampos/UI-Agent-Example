@@ -1,0 +1,8 @@
+[
+  {
+    "relativePath": "src/app/(shop)/membership/new/page.tsx",
+    "shortDescription": "New membership registration review screen.",
+    "fullDescription": "Implements a PriceSmart-styled new membership view based on reference image 1777781281647-hz7g5mgy2b8.jpeg. The screen includes a compact top brand bar, a left step sidebar for membership data and payment, personal data, contact, address, and secondary memberships sections, plus footer actions for going home, saving changes, and continuing to payment.",
+    "isView": true
+  }
+]
