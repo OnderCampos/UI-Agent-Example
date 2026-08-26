@@ -1,14 +1,14 @@
 [
   {
     "relativePath": "src/app/(shop)/membership/new/page.tsx",
-    "shortDescription": "New membership registration review screen.",
-    "fullDescription": "Implements a PriceSmart-styled new membership view based on reference image 1777781281647-hz7g5mgy2b8.jpeg. The screen includes a compact top brand bar, a left step sidebar for membership data and payment, personal data, contact, address, and secondary memberships sections, plus footer actions for going home, saving changes, and continuing to payment.",
+    "shortDescription": "Secondary membership registration form screen.",
+    "fullDescription": "Implements the add secondary membership view based on reference image 1777781280362-0m1yd6qajlo.jpeg. The screen shows the primary member name and status, a single-step membership data sidebar, personal data fields with photo placeholder, contact inputs with send-code actions and decline checkboxes, address inputs with a same-as-primary option, and footer actions for going home, saving changes, returning to the previous step, or adding the member.",
     "isView": true
   },
   {
     "relativePath": "src/components/features/membership/membership-dashboard-header.tsx",
     "shortDescription": "Compact PriceSmart membership header bar.",
-    "fullDescription": "Reusable membership-area header that renders the dark brand bar, logo, store selector, country selector, and language selector used by membership-focused views. It is intended for streamlined operational screens that need the simplified two-row header instead of the main ecommerce site navigation.",
+    "fullDescription": "Reusable membership-area header that renders the dark brand bar, logo, store selector, country selector, and language selector used by membership-focused views. It is intended for streamlined operational screens that need the simplified two-row header instead of the main ecommerce site navigation, including the secondary membership registration form and other membership workflow views.",
     "isView": false
   },
   {
