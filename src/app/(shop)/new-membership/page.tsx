@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
 
-import { MembershipLocator } from "@/components/features/membership/membership-locator";
+import { NewSecondaryMembershipForm } from "@/components/features/membership/new-secondary-membership-form";
 
 export const metadata: Metadata = {
-  title: "Membership search",
-  description: "Create a new membership or search for an existing member profile.",
+  title: "New secondary membership",
+  description: "Add a new secondary membership linked to a primary member.",
 };
 
 export default function NewMembershipPage() {
-  return <MembershipLocator />;
+  return <NewSecondaryMembershipForm />;
 }

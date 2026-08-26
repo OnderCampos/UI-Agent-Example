@@ -7,8 +7,8 @@
   },
   {
     "relativePath": "src/app/(shop)/new-membership/page.tsx",
-    "shortDescription": "Membership entry page for registration or member lookup.",
-    "fullDescription": "Displays the membership landing screen with two top action cards for starting a new membership or opening pending processes, followed by a centered member search form. The view uses the shared MembershipLocator component to match the reference image 1777781280776-hz85g27aqjj.jpeg and keep the membership search-and-create layout reusable for future onboarding flows.",
+    "shortDescription": "Secondary membership form screen linked to a primary member.",
+    "fullDescription": "Displays the membership registration form for adding a new secondary member under an existing primary membership. The view includes the branded top header, primary member context, left progress rail, personal data section with photo placeholder, contact verification inputs, address fields, footer navigation actions, and the floating quick-action button while using the shared NewSecondaryMembershipForm component to match reference image 1777781280362-0m1yd6qajlo.jpeg.",
     "isView": true
   },
   {
@@ -34,5 +34,11 @@
     "shortDescription": "Membership verification screen shown as a centered modal over a dimmed background.",
     "fullDescription": "Displays the verify memberships experience as a centered modal dialog over a muted backdrop, matching the provided reference. The view uses the shared MembershipVerifyDialog component to present member contact rows, verification states, code entry placeholders, resend actions, and the final Done button for completing contact confirmation.",
     "isView": true
+  },
+  {
+    "relativePath": "src/components/features/membership/new-secondary-membership-form.tsx",
+    "shortDescription": "Reusable secondary membership entry form with sectioned membership fields.",
+    "fullDescription": "Renders the full secondary membership data-entry layout with a branded top bar, primary member summary, single-step side rail, section headings, compact form controls for personal data, contact verification rows, address inputs, footer action buttons, and a floating shortcut button. The component is reusable for future membership onboarding screens that need the same structured multi-section form presentation from reference image 1777781280362-0m1yd6qajlo.jpeg.",
+    "isView": false
   }
 ]
