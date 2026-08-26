@@ -1,0 +1,38 @@
+[
+  {
+    "relativePath": "src/components/features/membership/membership-card.tsx",
+    "shortDescription": "Digital membership card components.",
+    "fullDescription": "Reusable front and back membership card components that display PriceSmart membership identity, barcode styling, status overlays, expiration state, and points. They accept membership data and member name props so account and membership-related views can present the card in a consistent format.",
+    "isView": false
+  },
+  {
+    "relativePath": "src/components/features/membership/membership-registration-view.tsx",
+    "shortDescription": "Secondary membership registration form layout.",
+    "fullDescription": "Reusable membership registration form component based on the 1777781280362-0m1yd6qajlo.jpeg reference. It renders the add-secondary-member workflow with a primary member header, a left-side membership step marker, grouped personal data, contact, and address form sections, inline checkbox options, send-code actions, and footer controls for navigation and saving.",
+    "isView": false
+  },
+  {
+    "relativePath": "src/components/features/membership/membership-lookup-view.tsx",
+    "shortDescription": "Membership search landing layout.",
+    "fullDescription": "Reusable membership lookup screen based on the 1777781280776-hz85g27aqjj.jpeg reference. It presents two primary action cards for starting a new membership or reviewing a pending process, plus a centered member search form for finding profiles by name, phone, email, or membership number.",
+    "isView": false
+  },
+  {
+    "relativePath": "src/components/features/membership/membership-verification-dialog.tsx",
+    "shortDescription": "Membership verification modal with member code entry rows.",
+    "fullDescription": "Reusable membership verification dialog based on the 1777781279681-hbeprvw275k.jpeg reference. It displays a centered overlay with a verification summary, member rows showing avatars and contacts, verified and pending states, four-digit code entry placeholders, resend actions, and a final Done button for membership confirmation flows.",
+    "isView": false
+  },
+  {
+    "relativePath": "src/components/ui/dialog.tsx",
+    "shortDescription": "Shared dialog primitives with optional close control.",
+    "fullDescription": "Reusable Radix dialog wrappers used across overlay-based interfaces. DialogContent now supports an optional showCloseButton prop so modal compositions can either use the default shared close icon or provide a custom close treatment that better matches a specific design while keeping the same portal and overlay behavior.",
+    "isView": false
+  },
+  {
+    "relativePath": "src/app/(shop)/account/membership/page.tsx",
+    "shortDescription": "New secondary membership view.",
+    "fullDescription": "Account membership screen composed around the reusable MembershipRegistrationView component. The view presents the primary member context, a form for personal information, contact details, and address data, and footer actions for returning home, saving changes, going to the previous step, or adding the secondary member.",
+    "isView": true
+  }
+]
