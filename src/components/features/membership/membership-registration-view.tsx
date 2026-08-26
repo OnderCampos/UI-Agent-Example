@@ -1,30 +1,83 @@
-import Image from "next/image";
 import Link from "next/link";
 import {
+  CalendarDays,
   Camera,
   ChevronDown,
-  Circle,
   FolderOpen,
+  Globe,
+  House,
   MapPin,
   Phone,
+  Smartphone,
   UserRound,
-  UserRoundPlus,
 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 
-interface DetailItemProps {
+interface FieldProps {
   label: string;
-  value: string;
-  className?: string;
+  placeholder?: string;
+  value?: string;
+  trailingIcon?: React.ElementType;
+  disabled?: boolean;
 }
 
-function DetailItem({ label, value, className }: DetailItemProps) {
+function Field({ label, placeholder, value, trailingIcon: TrailingIcon, disabled }: FieldProps) {
   return (
-    <div className={cn("space-y-1", className)}>
-      <p className="text-[11px] font-medium text-[#64748b]">{label}</p>
-      <p className="text-[13px] text-[#243b6b]">{value}</p>
+    <label className="space-y-1.5">
+      <span className="block text-[10px] font-medium text-[#4b587c]">{label}</span>
+      <div className="relative">
+        <Input
+          value={value}
+          placeholder={placeholder}
+          disabled={disabled}
+          readOnly
+          className={cn(
+            "h-[34px] rounded-md border-[#d9dee8] bg-white px-3 text-[12px] text-[#334155] placeholder:text-[#9aa5b5] focus-visible:ring-1 focus-visible:ring-[#2b56c4]",
+            TrailingIcon && "pr-9",
+            disabled && "bg-[#f8f9fc] text-[#9aa5b5]",
+          )}
+        />
+        {TrailingIcon ? (
+          <TrailingIcon className="pointer-events-none absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[#98a2b3]" />
+        ) : null}
+      </div>
+    </label>
+  );
+}
+
+interface SelectFieldProps {
+  label: string;
+  value: string;
+}
+
+function SelectField({ label, value }: SelectFieldProps) {
+  return <Field label={label} value={value} trailingIcon={ChevronDown} />;
+}
+
+interface CodeRowProps {
+  label: string;
+  checkboxLabel: string;
+  fullWidth?: boolean;
+}
+
+function CodeRow({ label, checkboxLabel, fullWidth }: CodeRowProps) {
+  return (
+    <div className={cn("grid gap-3 md:grid-cols-[1fr_96px_auto] md:items-end", fullWidth && "lg:col-span-3") }>
+      <Field label={label} placeholder={`Enter your ${label.toLowerCase().replace(" *", "")}`} />
+      <Button
+        variant="outline"
+        className="h-[34px] min-w-[96px] rounded-md border-[#e3e7ef] bg-[#f8f9fc] px-3 text-[11px] font-medium text-[#a5adba] hover:bg-[#f8f9fc] hover:text-[#a5adba]"
+      >
+        Send code
+      </Button>
+      <label className="flex min-h-[34px] items-center gap-2 text-[11px] text-[#4b587c]">
+        <Checkbox className="h-4 w-4 rounded-[4px] border-[#d6dbe5] data-[state=checked]:border-[#2b56c4] data-[state=checked]:bg-[#2b56c4]" />
+        <span>{checkboxLabel}</span>
+      </label>
     </div>
   );
 }
@@ -32,191 +85,146 @@ function DetailItem({ label, value, className }: DetailItemProps) {
 interface SectionTitleProps {
   icon: React.ElementType;
   title: string;
+  muted?: boolean;
 }
 
-function SectionTitle({ icon: Icon, title }: SectionTitleProps) {
+function SectionTitle({ icon: Icon, title, muted }: SectionTitleProps) {
   return (
-    <div className="mb-5 flex items-center gap-2 text-[#284687]">
+    <div className={cn("mb-4 flex items-center gap-2", muted ? "text-[#c0c7d3]" : "text-[#2c4379]") }>
       <Icon className="h-4 w-4 stroke-[1.8]" />
       <h2 className="text-[15px] font-medium">{title}</h2>
     </div>
   );
 }
 
-interface SecondaryMembershipCardProps {
-  name: string;
-  image: string;
-}
-
-function SecondaryMembershipCard({ name, image }: SecondaryMembershipCardProps) {
-  return (
-    <div className="flex min-w-[150px] items-center justify-between rounded-[10px] border border-[#e7ebf3] bg-white px-3 py-2 shadow-[0_1px_2px_rgba(15,23,42,0.04)]">
-      <div className="flex items-center gap-2">
-        <Image
-          src={image}
-          alt={name}
-          width={28}
-          height={28}
-          className="h-7 w-7 rounded-full object-cover"
-        />
-        <div className="leading-tight">
-          <p className="text-[12px] font-medium text-[#334155]">{name}</p>
-          <div className="mt-1 flex items-center gap-2 text-[11px] font-medium">
-            <button className="text-[#2b56c4]">Edit</button>
-            <span className="text-[#cbd5e1]">|</span>
-            <button className="text-[#d45d3a]">Remove</button>
-          </div>
-        </div>
-      </div>
-      <Circle className="h-4 w-4 fill-[#fff7e8] text-[#e2a02f] stroke-[1.8]" />
-    </div>
-  );
-}
-
 export function MembershipRegistrationView() {
   return (
-    <div className="min-h-[calc(100vh-148px)] bg-[#f6f7fb] text-[#0f172a]">
-      <div className="mx-auto max-w-[1280px] px-6 pb-10 pt-5 lg:px-10">
+    <div className="min-h-[calc(100vh-112px)] bg-[#f5f6f8] text-[#0f172a]">
+      <div className="mx-auto max-w-[1380px] px-6 pb-8 pt-5">
+        <div className="mb-5 space-y-1.5">
+          <h1 className="text-[20px] font-medium text-[#30477f]">Nicolas Treviño</h1>
+          <p className="text-[13px] text-[#5d6b89]">Primary membership</p>
+        </div>
+
         <div className="mb-4 flex items-center justify-between">
-          <h1 className="text-[20px] font-medium text-[#2a3f7a]">New membership</h1>
+          <h2 className="text-[18px] font-medium text-[#30477f]">New secondary membership</h2>
           <Button
             variant="outline"
-            className="h-8 rounded-md border-[#8bb3f1] px-3 text-[11px] font-medium text-[#2b56c4] hover:bg-[#eef5ff] hover:text-[#2b56c4]"
+            className="h-[32px] rounded-md border-[#85a9ea] bg-white px-4 text-[11px] font-medium text-[#2f67d1] hover:bg-[#eef4ff] hover:text-[#2f67d1]"
           >
             Capture Member ID
           </Button>
         </div>
 
-        <div className="overflow-hidden rounded-sm bg-white shadow-[0_0_0_1px_rgba(226,232,240,0.9)]">
-          <div className="grid min-h-[760px] grid-cols-1 lg:grid-cols-[184px_1fr]">
-            <aside className="border-r border-[#e6eaf1] bg-[#fbfcfe] px-5 py-8">
-              <div className="space-y-6">
-                <div className="flex items-start gap-3">
-                  <span className="mt-0.5 flex h-4 w-4 items-center justify-center rounded-full bg-[#243b6b] text-[10px] font-semibold text-white">
-                    1
-                  </span>
-                  <div>
-                    <p className="text-[11px] font-semibold text-[#243b6b]">Membership data</p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-3 opacity-45">
-                  <span className="mt-0.5 flex h-4 w-4 items-center justify-center rounded-full border border-[#cad3e1] text-[10px] font-semibold text-[#94a3b8]">
-                    2
-                  </span>
-                  <div>
-                    <p className="text-[11px] font-medium text-[#64748b]">Payment</p>
-                  </div>
-                </div>
+        <div className="overflow-hidden rounded-sm border border-[#e3e7ee] bg-[#f5f6f8]">
+          <div className="grid lg:grid-cols-[110px_1fr]">
+            <aside className="border-r border-[#dde2ea] px-4 py-4">
+              <div className="flex items-start gap-2 text-[#354a7f]">
+                <span className="mt-0.5 flex h-4 w-4 items-center justify-center rounded-full bg-[#273b73] text-[10px] font-semibold text-white">
+                  1
+                </span>
+                <span className="text-[11px] font-semibold">Membership data</span>
               </div>
             </aside>
 
-            <div className="flex flex-col">
-              <div className="flex-1 px-4 py-7 sm:px-6 lg:px-7">
-                <section className="border-b border-[#e7ebf1] pb-7">
-                  <SectionTitle icon={FolderOpen} title="Personal data" />
-                  <div className="grid gap-6 xl:grid-cols-[120px_1fr] xl:gap-8">
-                    <div className="flex flex-col items-center pt-1">
-                      <Image
-                        src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=240&q=80"
-                        alt="Member profile"
-                        width={98}
-                        height={98}
-                        className="h-[98px] w-[98px] rounded-full object-cover"
-                      />
-                      <button className="mt-3 flex items-center gap-1 text-[10px] font-medium text-[#2b56c4]">
-                        <Camera className="h-3 w-3" />
-                        Change picture
-                      </button>
-                    </div>
-
-                    <div className="grid gap-y-7 sm:grid-cols-2 lg:grid-cols-3 lg:gap-x-10">
-                      <DetailItem label="ID Type" value="DNI" />
-                      <DetailItem label="ID Number" value="IDGTM1234567890123S0123" />
-                      <DetailItem label="Membership Type" value="Diamond" />
-                      <DetailItem label="Abbreviation" value="Mr." />
-                      <DetailItem label="First Name" value="Nicolás" />
-                      <DetailItem label="Last Name" value="Treviño" />
-                      <DetailItem label="Gender" value="Male" />
-                      <DetailItem label="Date of birth" value="13/09/1978" />
-                      <DetailItem label="Occupation" value="Urban planner" />
-                    </div>
-                  </div>
-                </section>
-
-                <section className="border-b border-[#e7ebf1] py-7">
-                  <SectionTitle icon={Phone} title="Contact" />
-                  <div className="grid gap-y-7 sm:grid-cols-2 lg:grid-cols-3 lg:gap-x-10">
-                    <DetailItem label="Email address *" value="Customer declined to provide email address" className="sm:col-span-2 lg:col-span-3" />
-                    <DetailItem label="Mobile phone number *" value="+502 1234 5678" />
-                    <DetailItem label="" value="" className="hidden lg:block" />
-                    <div className="space-y-1">
-                      <p className="text-[11px] font-medium text-[#64748b]">&nbsp;</p>
-                      <Circle className="h-4 w-4 fill-[#fff7e8] text-[#e2a02f] stroke-[1.8]" />
-                    </div>
-                    <DetailItem label="Home phone number *" value="+502 2345 6789" />
-                    <DetailItem label="Notifications" value="By email address" />
-                  </div>
-                </section>
-
-                <section className="border-b border-[#e7ebf1] py-7">
-                  <SectionTitle icon={MapPin} title="Address" />
-                  <div className="grid gap-y-7 sm:grid-cols-2 lg:grid-cols-4 lg:gap-x-10">
-                    <DetailItem label="Address *" value="Km 46.5 Salida A Ciudad Vieja" className="lg:col-span-2" />
-                    <DetailItem label="Country" value="Guatemala" />
-                    <DetailItem label="State" value="Antigua" />
-                    <DetailItem label="City" value="Sacatepequez" />
-                  </div>
-                </section>
-
-                <section className="pt-7">
-                  <SectionTitle icon={UserRoundPlus} title="Secondary memberships" />
-                  <div className="flex flex-wrap gap-4">
-                    <SecondaryMembershipCard
-                      name="Mayra Treviño"
-                      image="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=120&q=80"
-                    />
-                    <SecondaryMembershipCard
-                      name="Pablo Treviño"
-                      image="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=120&q=80"
-                    />
-                  </div>
-                </section>
-              </div>
-
-              <div className="border-t border-[#e7ebf1] px-4 py-4 sm:px-6 lg:px-7">
-                <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-                  <div className="flex flex-wrap gap-3">
-                    <Button
-                      variant="outline"
-                      className="h-9 rounded-md border-[#91a9df] px-5 text-[12px] font-medium text-[#2b56c4] hover:bg-[#f5f8ff] hover:text-[#2b56c4]"
-                      asChild
-                    >
-                      <Link href="/">
-                        <UserRound className="h-4 w-4" />
-                        Go back home
-                      </Link>
-                    </Button>
-                    <Button
-                      variant="outline"
-                      className="h-9 rounded-md border-[#91a9df] px-5 text-[12px] font-medium text-[#2b56c4] hover:bg-[#f5f8ff] hover:text-[#2b56c4]"
-                    >
-                      Save changes
-                    </Button>
+            <div className="bg-[#f6f7f9] px-4 py-4 md:px-5 lg:px-6">
+              <section className="border-b border-[#dde2ea] pb-5">
+                <SectionTitle icon={FolderOpen} title="Personal data" />
+                <div className="grid gap-5 xl:grid-cols-[96px_1fr]">
+                  <div className="flex flex-col items-center pt-2">
+                    <div className="h-[88px] w-[88px] rounded-full bg-[#c7ccd6]" />
+                    <button className="mt-2 text-[10px] font-medium text-[#2f67d1]">Take photo</button>
                   </div>
 
-                  <Button className="h-10 min-w-[126px] rounded-md bg-[#233b7b] px-6 text-[12px] font-medium text-white hover:bg-[#1d3268]">
-                    Payment
-                  </Button>
+                  <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+                    <SelectField label="ID Type *" value="Select" />
+                    <Field label="ID Number *" placeholder="Enter ID number" />
+                    <SelectField label="Membership type *" value="Select" />
+                    <SelectField label="Abbreviation" value="Select" />
+                    <Field label="First Name *" placeholder="Enter first name" />
+                    <Field label="Last Name *" placeholder="Enter last name" />
+                    <SelectField label="Gender" value="Select" />
+                    <Field label="Date of birth *" value="Select" trailingIcon={CalendarDays} />
+                    <SelectField label="Occupation" value="Select" />
+                  </div>
                 </div>
-              </div>
+              </section>
+
+              <section className="border-b border-[#dde2ea] py-5">
+                <SectionTitle icon={Phone} title="Contact" muted />
+                <div className="space-y-4">
+                  <CodeRow
+                    label="Email address *"
+                    checkboxLabel="Customer declines to provide email address"
+                    fullWidth
+                  />
+                  <CodeRow
+                    label="Mobile phone number *"
+                    checkboxLabel="Customer declines to provide mobile phone number"
+                    fullWidth
+                  />
+                  <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-[1fr_1fr_1fr]">
+                    <Field label="Home phone number" placeholder="Enter your home phone number" />
+                    <SelectField label="Notifications" value="Select" />
+                    <div />
+                  </div>
+                </div>
+              </section>
+
+              <section className="py-5">
+                <SectionTitle icon={MapPin} title="Address" muted />
+                <label className="mb-4 flex items-center gap-2 text-[11px] text-[#4b587c]">
+                  <Checkbox className="h-4 w-4 rounded-[4px] border-[#d6dbe5] data-[state=checked]:border-[#2b56c4] data-[state=checked]:bg-[#2b56c4]" />
+                  <span>Same address as primary member</span>
+                </label>
+                <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-[2.1fr_1fr_1fr_1fr]">
+                  <Field label="Address *" placeholder="Enter your address" />
+                  <SelectField label="Country" value="Select" />
+                  <SelectField label="State" value="Select" />
+                  <SelectField label="City" value="Select" />
+                </div>
+              </section>
+            </div>
+          </div>
+
+          <div className="flex flex-col gap-4 border-t border-[#dde2ea] bg-[#f5f6f8] px-4 py-4 md:flex-row md:items-center md:justify-between md:px-5 lg:px-6">
+            <div className="flex flex-wrap gap-3">
+              <Button
+                variant="outline"
+                asChild
+                className="h-[36px] rounded-md border-[#8da8dc] bg-white px-4 text-[12px] font-medium text-[#2f67d1] hover:bg-[#eef4ff] hover:text-[#2f67d1]"
+              >
+                <Link href="/">
+                  <House className="h-4 w-4" />
+                  Go back home
+                </Link>
+              </Button>
+              <Button
+                variant="outline"
+                className="h-[36px] rounded-md border-[#8da8dc] bg-white px-5 text-[12px] font-medium text-[#2f67d1] hover:bg-[#eef4ff] hover:text-[#2f67d1]"
+              >
+                Save changes
+              </Button>
+            </div>
+
+            <div className="flex flex-wrap gap-3 md:justify-end">
+              <Button className="h-[38px] min-w-[94px] rounded-md bg-[#e44e26] px-5 text-[12px] font-medium text-white hover:bg-[#d4461f]">
+                Previous
+              </Button>
+              <Button
+                disabled
+                className="h-[38px] min-w-[94px] rounded-md bg-[#e7e9ef] px-5 text-[12px] font-medium text-[#a7afbc] hover:bg-[#e7e9ef]"
+              >
+                Add member
+              </Button>
             </div>
           </div>
         </div>
       </div>
 
-      <div className="fixed right-6 top-[168px] z-20 rounded-xl bg-[#203b7b] p-3 shadow-[0_8px_24px_rgba(35,59,123,0.28)]">
-        <button className="flex h-11 w-11 items-center justify-center rounded-lg border border-white/10 bg-[#263f80] text-white">
-          <ChevronDown className="h-5 w-5 -rotate-90" />
+      <div className="fixed right-3 top-[102px] z-20 rounded-l-xl bg-[#203a79] p-3 shadow-[0_10px_24px_rgba(32,58,121,0.25)]">
+        <button className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#283f7f] text-white">
+          <Smartphone className="h-4 w-4" />
         </button>
       </div>
     </div>

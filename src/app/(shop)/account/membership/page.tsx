@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
 
-import { MembershipVerificationDialog } from "@/components/features/membership/membership-verification-dialog";
+import { MembershipRegistrationView } from "@/components/features/membership/membership-registration-view";
 
 export const metadata: Metadata = {
-  title: "Verify memberships",
-  description: "Confirm member identities with verification codes sent to their registered contact methods.",
+  title: "New secondary membership",
+  description: "Add a new secondary membership linked to a primary member through personal, contact, and address details.",
 };
 
 export default function MembershipPage() {
-  return <MembershipVerificationDialog />;
+  return <MembershipRegistrationView />;
 }

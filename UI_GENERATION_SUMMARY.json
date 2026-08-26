@@ -7,8 +7,8 @@
   },
   {
     "relativePath": "src/components/features/membership/membership-registration-view.tsx",
-    "shortDescription": "Membership registration review layout.",
-    "fullDescription": "Reusable membership registration review component based on the 1777781281647-hz7g5mgy2b8.jpeg reference. It renders the new membership flow shell with step navigation, personal data, contact details, address information, secondary membership cards, and footer actions for saving changes or continuing to payment.",
+    "shortDescription": "Secondary membership registration form layout.",
+    "fullDescription": "Reusable membership registration form component based on the 1777781280362-0m1yd6qajlo.jpeg reference. It renders the add-secondary-member workflow with a primary member header, a left-side membership step marker, grouped personal data, contact, and address form sections, inline checkbox options, send-code actions, and footer controls for navigation and saving.",
     "isView": false
   },
   {
@@ -31,8 +31,8 @@
   },
   {
     "relativePath": "src/app/(shop)/account/membership/page.tsx",
-    "shortDescription": "Membership verification overlay view.",
-    "fullDescription": "Account membership screen composed around the reusable MembershipVerificationDialog component. The view presents the membership confirmation overlay with registered contact methods, member verification status, pending code entry rows, and the final Done action while using the background only as modal context.",
+    "shortDescription": "New secondary membership view.",
+    "fullDescription": "Account membership screen composed around the reusable MembershipRegistrationView component. The view presents the primary member context, a form for personal information, contact details, and address data, and footer actions for returning home, saving changes, going to the previous step, or adding the secondary member.",
     "isView": true
   }
 ]
