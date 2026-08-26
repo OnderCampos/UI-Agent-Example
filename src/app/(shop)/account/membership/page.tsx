@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
 
-import { MembershipRegistrationView } from "@/components/features/membership/membership-registration-view";
+import { MembershipLookupView } from "@/components/features/membership/membership-lookup-view";
 
 export const metadata: Metadata = {
-  title: "New membership",
-  description: "Review and edit new membership registration details before payment.",
+  title: "Membership search",
+  description: "Create a new membership or look up an existing member profile.",
 };
 
 export default function MembershipPage() {
-  return <MembershipRegistrationView />;
+  return <MembershipLookupView />;
 }

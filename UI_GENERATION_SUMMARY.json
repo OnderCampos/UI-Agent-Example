@@ -12,9 +12,15 @@
     "isView": false
   },
   {
+    "relativePath": "src/components/features/membership/membership-lookup-view.tsx",
+    "shortDescription": "Membership search landing layout.",
+    "fullDescription": "Reusable membership lookup screen based on the 1777781280776-hz85g27aqjj.jpeg reference. It presents two primary action cards for starting a new membership or reviewing a pending process, plus a centered member search form for finding profiles by name, phone, email, or membership number.",
+    "isView": false
+  },
+  {
     "relativePath": "src/app/(shop)/account/membership/page.tsx",
-    "shortDescription": "New membership review screen.",
-    "fullDescription": "Account membership view that presents a new membership registration summary before payment. The screen uses the reusable MembershipRegistrationView component to show staged membership data, sectioned review content, and the final action row matching the provided reference layout.",
+    "shortDescription": "Membership search and registration entry screen.",
+    "fullDescription": "Account membership view that introduces the membership workflow with prominent action cards for creating a new membership and checking pending processes. The screen uses the reusable MembershipLookupView component to match the provided reference with the search section and disabled search action for locating existing customer profiles.",
     "isView": true
   }
 ]
