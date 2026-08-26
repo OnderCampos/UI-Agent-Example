@@ -1,0 +1,14 @@
+[
+  {
+    "relativePath": "src/components/features/membership/new-membership-registration.tsx",
+    "shortDescription": "Reusable membership registration review layout.",
+    "fullDescription": "Reusable membership registration review component that renders the new membership flow shown before payment. It includes the left progress rail, personal data summary with member photo, contact and address sections, secondary membership cards with edit and remove actions, and the bottom action bar for returning home, saving changes, or proceeding to payment.",
+    "isView": false
+  },
+  {
+    "relativePath": "src/app/(shop)/membership/page.tsx",
+    "shortDescription": "New membership review screen.",
+    "fullDescription": "View for reviewing a new membership registration before payment. The screen composes the reusable NewMembershipRegistration component to present membership data, personal details, contact information, address details, secondary membership summaries, and primary call-to-action buttons in a PriceSmart-styled layout matching the reference image 1777781281647-hz7g5mgy2b8.jpeg.",
+    "isView": true
+  }
+]
