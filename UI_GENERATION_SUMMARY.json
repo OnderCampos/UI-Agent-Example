@@ -6,9 +6,15 @@
     "isView": false
   },
   {
+    "relativePath": "src/components/features/membership/membership-landing.tsx",
+    "shortDescription": "Reusable membership entry screen with quick actions and customer search.",
+    "fullDescription": "Reusable membership landing component that renders a compact PriceSmart-branded header, two primary action cards for starting a new membership or checking pending processes, and a centered search section for locating an existing membership by name, phone, email, or membership ID. It supports membership onboarding entry points and lookup-focused account flows matching the reference image 1777781280776-hz85g27aqjj.jpeg.",
+    "isView": false
+  },
+  {
     "relativePath": "src/app/(shop)/account/membership-registration/page.tsx",
-    "shortDescription": "Membership registration review screen before payment.",
-    "fullDescription": "View for reviewing a new membership before checkout. The screen includes a top action to capture a member ID, a left-side step indicator for membership data and payment, structured sections for personal data, contact, address, and secondary memberships, plus footer actions to go back home, save changes, or proceed to payment. It uses the shared NewMembershipRegistration component for the full composition.",
+    "shortDescription": "Membership search and onboarding landing screen.",
+    "fullDescription": "View for starting customer membership workflows from a single page. The screen includes a branded top bar, quick-entry cards for creating a new membership and reviewing pending processes, and a membership search form with a disabled submit state for finding existing profiles before registration. It uses the shared MembershipLanding component for the full composition.",
     "isView": true
   }
 ]

@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
 
-import { NewMembershipRegistration } from "@/components/features/membership/new-membership-registration";
+import { MembershipLanding } from "@/components/features/membership/membership-landing";
 
 export const metadata: Metadata = {
-  title: "New Membership",
-  description: "Review and manage a new membership registration before proceeding to payment.",
+  title: "Membership",
+  description: "Create a new membership, review pending processes, or search for an existing membership profile.",
 };
 
 export default function MembershipRegistrationPage() {
-  return <NewMembershipRegistration />;
+  return <MembershipLanding />;
 }
