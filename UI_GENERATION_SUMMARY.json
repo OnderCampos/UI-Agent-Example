@@ -16,5 +16,23 @@
     "shortDescription": "Reusable membership locator hero with action cards and search form.",
     "fullDescription": "Renders the membership access interface with a branded top bar, two large action cards, explanatory copy, and a centered search field for locating member profiles by name, phone, email, or membership number. The component supports active and inactive action-card states and can be reused by membership-related views that need a lightweight customer lookup entry screen.",
     "isView": false
+  },
+  {
+    "relativePath": "src/components/ui/dialog.tsx",
+    "shortDescription": "Shared Radix dialog wrapper with optional built-in close control.",
+    "fullDescription": "Provides the reusable modal primitives used across the application, including overlay, portal, content, header, footer, title, and description helpers. The dialog content now supports an optional showCloseButton prop so views can hide the default top-right close button when supplying a custom control or matching a tightly designed modal layout.",
+    "isView": false
+  },
+  {
+    "relativePath": "src/components/features/membership/membership-verify-dialog.tsx",
+    "shortDescription": "Reusable membership verification modal with member rows and code entry boxes.",
+    "fullDescription": "Renders the compact membership verification dialog from reference image 1777781279681-hbeprvw275k.jpeg, including the icon header, explanatory copy, verified and pending member rows, four-slot code entry placeholders, resend links, and a primary Done action. The component is designed as a reusable membership flow modal for confirming multiple contacts by phone number or email while keeping row status presentation consistent across future verification-related screens.",
+    "isView": false
+  },
+  {
+    "relativePath": "src/app/(shop)/account/membership/page.tsx",
+    "shortDescription": "Membership verification screen shown as a centered modal over a dimmed background.",
+    "fullDescription": "Displays the verify memberships experience as a centered modal dialog over a muted backdrop, matching the provided reference. The view uses the shared MembershipVerifyDialog component to present member contact rows, verification states, code entry placeholders, resend actions, and the final Done button for completing contact confirmation.",
+    "isView": true
   }
 ]
