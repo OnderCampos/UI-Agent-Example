@@ -7,8 +7,14 @@
   },
   {
     "relativePath": "src/app/(shop)/new-membership/page.tsx",
-    "shortDescription": "New membership review page before payment.",
-    "fullDescription": "Displays a full-page membership registration review for store staff or users to inspect personal data, contact information, address, and secondary memberships before continuing to payment. The view uses the shared NewMembershipReview component to keep the membership review presentation reusable across future onboarding or edit flows.",
+    "shortDescription": "Membership entry page for registration or member lookup.",
+    "fullDescription": "Displays the membership landing screen with two top action cards for starting a new membership or opening pending processes, followed by a centered member search form. The view uses the shared MembershipLocator component to match the reference image 1777781280776-hz85g27aqjj.jpeg and keep the membership search-and-create layout reusable for future onboarding flows.",
     "isView": true
+  },
+  {
+    "relativePath": "src/components/features/membership/membership-locator.tsx",
+    "shortDescription": "Reusable membership locator hero with action cards and search form.",
+    "fullDescription": "Renders the membership access interface with a branded top bar, two large action cards, explanatory copy, and a centered search field for locating member profiles by name, phone, email, or membership number. The component supports active and inactive action-card states and can be reused by membership-related views that need a lightweight customer lookup entry screen.",
+    "isView": false
   }
 ]
