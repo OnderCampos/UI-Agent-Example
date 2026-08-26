@@ -22,5 +22,17 @@
     "shortDescription": "Membership search and action landing screen.",
     "fullDescription": "Implements the membership landing view based on reference image 1777781280776-hz85g27aqjj.jpeg. The screen uses the reusable membership dashboard header and action tiles, then presents a search section for locating an existing member by name, phone, email, or membership ID before starting a new membership process.",
     "isView": true
+  },
+  {
+    "relativePath": "src/components/features/membership/membership-verification-dialog.tsx",
+    "shortDescription": "Membership verification modal for confirming contacts.",
+    "fullDescription": "Reusable verification dialog for membership workflows that lists primary and secondary member contacts, shows verified and pending states, renders four code entry boxes with a resend action for pending members, and provides a final Done action. It supports rows with or without a displayed member name and can be reused anywhere a membership contact confirmation step is needed, including the view based on reference image 1777781279681-hbeprvw275k.jpeg.",
+    "isView": false
+  },
+  {
+    "relativePath": "src/app/(shop)/membership/verify/page.tsx",
+    "shortDescription": "Membership contact verification screen.",
+    "fullDescription": "Implements the membership verification view using the reusable membership verification dialog centered over a dimmed application background. The screen presents a compact confirmation modal with the verify memberships heading, explanatory copy, verified and pending member rows, code input boxes, resend links, and a Done button for finishing the confirmation flow shown in reference image 1777781279681-hbeprvw275k.jpeg.",
+    "isView": true
   }
 ]
