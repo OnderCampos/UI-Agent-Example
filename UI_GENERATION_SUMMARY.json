@@ -16,5 +16,17 @@
     "shortDescription": "Membership search and onboarding landing screen.",
     "fullDescription": "View for starting customer membership workflows from a single page. The screen includes a branded top bar, quick-entry cards for creating a new membership and reviewing pending processes, and a membership search form with a disabled submit state for finding existing profiles before registration. It uses the shared MembershipLanding component for the full composition.",
     "isView": true
+  },
+  {
+    "relativePath": "src/components/features/membership/membership-verification-dialog.tsx",
+    "shortDescription": "Reusable membership verification dialog with member code entry rows.",
+    "fullDescription": "Reusable verification dialog for confirming memberships through registered phone numbers or email addresses. It renders a branded header, per-member rows with avatar support, verified and pending states, four-digit code placeholders, resend actions, and a final Done button. The component is intended for overlay-based account verification flows like the reference image 1777781279681-hbeprvw275k.jpeg and can be reused anywhere a group membership confirmation step is needed.",
+    "isView": false
+  },
+  {
+    "relativePath": "src/app/(shop)/account/membership-verification/page.tsx",
+    "shortDescription": "Membership verification modal view preview.",
+    "fullDescription": "View that presents the membership verification overlay in context, showing a dimmed application backdrop and the shared MembershipVerificationDialog component centered on screen. It is used to review member contacts, show which member is already verified, and display code-entry rows for pending verifications.",
+    "isView": true
   }
 ]
