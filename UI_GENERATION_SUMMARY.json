@@ -18,9 +18,15 @@
     "isView": false
   },
   {
+    "relativePath": "src/components/features/membership/member-verification-dialog.tsx",
+    "shortDescription": "Membership code verification dialog.",
+    "fullDescription": "Reusable membership verification dialog for confirming several members through their saved phone numbers or email addresses. It presents a centered modal with a soft dimmed backdrop, member identity rows, verified and pending states, four-digit code boxes, resend-code actions, and a final Done button matching reference image 1777781279681-hbeprvw275k.jpeg.",
+    "isView": false
+  },
+  {
     "relativePath": "src/app/(shop)/account/membership/page.tsx",
-    "shortDescription": "Membership search and entry screen.",
-    "fullDescription": "Account membership view for starting the membership flow. It uses the reusable member membership search component to show entry cards for new membership and pending process handling plus the centered search area for locating an existing customer membership profile.",
+    "shortDescription": "Membership verification screen.",
+    "fullDescription": "Account membership view that displays the reusable MemberVerificationDialog component as the active experience. The screen preserves the dimmed background context and shows a compact modal for verifying multiple memberships with mixed verified and pending member rows plus a bottom Done action.",
     "isView": true
   }
 ]

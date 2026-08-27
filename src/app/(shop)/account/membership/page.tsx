@@ -1,5 +1,5 @@
-import { MemberMembershipSearch } from "@/components/features/membership/member-membership-search";
+import { MemberVerificationDialog } from "@/components/features/membership/member-verification-dialog";
 
 export default function MembershipPage() {
-  return <MemberMembershipSearch />;
+  return <MemberVerificationDialog />;
 }
