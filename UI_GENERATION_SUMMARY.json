@@ -7,8 +7,8 @@
   },
   {
     "relativePath": "src/app/(shop)/members-selection/page.tsx",
-    "shortDescription": "Membership verification modal demo view.",
-    "fullDescription": "Renders a centered membership verification experience against a dimmed background, showcasing the shared MembershipVerificationDialog with member rows, verification status indicators, code entry boxes, resend links, and a final Done action for reference image 1777781279681-hbeprvw275k.jpeg.",
+    "shortDescription": "Secondary membership registration form view.",
+    "fullDescription": "Renders the membership management screen for adding a new secondary member linked to a primary member, including the branded top bars, primary member context header, left progress rail, personal data form, contact verification rows, address section, and footer actions. The view is composed with the shared NewSecondaryMembershipForm component to match reference image 1777781280362-0m1yd6qajlo.jpeg.",
     "isView": true
   },
   {
@@ -27,6 +27,12 @@
     "relativePath": "src/components/ui/dialog.tsx",
     "shortDescription": "Shared dialog primitive wrapper with optional built-in close control.",
     "fullDescription": "Wraps the Radix dialog primitives used across the application and now supports hiding the default close button through a hideCloseButton prop so branded modal headers can supply their own dismiss control while preserving the shared overlay, animation, and layout behavior.",
+    "isView": false
+  },
+  {
+    "relativePath": "src/components/features/membership/new-secondary-membership-form.tsx",
+    "shortDescription": "Reusable new secondary membership entry form.",
+    "fullDescription": "Builds the editable membership registration interface for attaching a secondary member to a primary member, with branded top navigation, contextual member heading, step rail, grouped personal data fields, contact verification inputs, address controls, and primary or secondary footer actions. It reuses the shared Button, Input, and Checkbox primitives and can be embedded in future household membership onboarding views based on reference image 1777781280362-0m1yd6qajlo.jpeg.",
     "isView": false
   }
 ]
