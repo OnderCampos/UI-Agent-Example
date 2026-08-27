@@ -1,0 +1,32 @@
+[
+  {
+    "relativePath": "src/components/features/membership/new-membership-registration-view.tsx",
+    "shortDescription": "Reusable membership registration review view",
+    "fullDescription": "Reusable membership registration review interface styled for the PriceSmart flow. It presents a two-step sidebar, personal data summary with member photo, contact details, address information, secondary membership cards, a floating capture action, and footer actions for returning home, saving changes, or continuing to payment. The composition is reusable for onboarding and membership renewal review screens that need the same sectioned summary layout.",
+    "isView": false
+  },
+  {
+    "relativePath": "src/components/features/membership/membership-search-view.tsx",
+    "shortDescription": "Reusable membership landing and lookup view",
+    "fullDescription": "Reusable PriceSmart membership intake interface based on reference image 1777781280776-hz85g27aqjj.jpeg. It renders the branded top bar, two primary action cards for starting a new membership or opening a pending process, and a centered search form for locating an existing member by name, phone, email, or membership ID. Other views can reuse it for membership onboarding entry flows that need the same action-card and search layout.",
+    "isView": false
+  },
+  {
+    "relativePath": "src/components/features/membership/membership-verification-dialog.tsx",
+    "shortDescription": "Reusable membership verification modal",
+    "fullDescription": "Reusable membership verification dialog based on reference image 1777781279681-hbeprvw275k.jpeg. It renders a centered modal over a muted slate backdrop, a compact membership verification header, member rows with avatars and contact details, verified and pending states, four-digit code placeholders, resend links, and a primary Done action. Other membership flows can reuse it whenever multiple contacts must be confirmed by code before continuing.",
+    "isView": false
+  },
+  {
+    "relativePath": "src/app/(shop)/membership/page.tsx",
+    "shortDescription": "Secondary membership registration screen",
+    "fullDescription": "Screen for adding a new secondary membership linked to a primary member. The page uses the shared NewSecondaryMembershipFormView component to render the PriceSmart top bar, primary member heading, membership-step sidebar, form sections for personal data, contact details, and address information, a floating capture shortcut, and footer actions for saving, returning home, and adding the member matching reference image 1777781280362-0m1yd6qajlo.jpeg.",
+    "isView": true
+  },
+  {
+    "relativePath": "src/components/features/membership/new-secondary-membership-form-view.tsx",
+    "shortDescription": "Reusable secondary membership intake form view",
+    "fullDescription": "Reusable PriceSmart membership form for creating a secondary member under an existing primary membership based on reference image 1777781280362-0m1yd6qajlo.jpeg. It includes the branded header, primary-member context, single-step membership sidebar, personal data area with photo placeholder, contact section with verification actions and opt-out checkboxes, address section with shared-address option, and footer action groups. Other membership onboarding screens can reuse it when collecting linked-member registration details in the same structured layout.",
+    "isView": false
+  }
+]
