@@ -1,0 +1,14 @@
+[
+  {
+    "relativePath": "src/components/features/membership/new-membership-registration.tsx",
+    "shortDescription": "Reusable new membership registration detail layout.",
+    "fullDescription": "Composes a membership registration review interface with a two-step sidebar, personal data header, contact and address sections, secondary membership cards, and a sticky action footer. It supports reuse for member onboarding or edit-review flows by accepting shared button, icon, and layout patterns already used across the application.",
+    "isView": false
+  },
+  {
+    "relativePath": "src/app/(shop)/members-selection/page.tsx",
+    "shortDescription": "Membership registration review screen.",
+    "fullDescription": "Displays a membership registration review flow that summarizes personal information, contact details, address data, and linked secondary memberships before payment. The screen uses the shared NewMembershipRegistration component to render the branded top bars, progress sidebar, member summary sections, and footer actions.",
+    "isView": true
+  }
+]
