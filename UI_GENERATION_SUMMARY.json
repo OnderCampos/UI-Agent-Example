@@ -1,0 +1,20 @@
+[
+  {
+    "relativePath": "src/components/features/membership/membership-card.tsx",
+    "shortDescription": "Digital membership card components.",
+    "fullDescription": "Reusable front and back membership card components that display membership identity, barcode styling, expiration state, points, and inactive overlays for account-related views.",
+    "isView": false
+  },
+  {
+    "relativePath": "src/components/features/membership/member-registration-review.tsx",
+    "shortDescription": "Membership registration review layout.",
+    "fullDescription": "Reusable membership review component that renders the new membership confirmation screen from the reference image, including the top brand bars, left stepper, personal data, contact details, address section, secondary membership cards, and footer actions for saving or proceeding to payment.",
+    "isView": false
+  },
+  {
+    "relativePath": "src/app/(shop)/account/membership/page.tsx",
+    "shortDescription": "New membership review screen.",
+    "fullDescription": "Account view for reviewing a new membership before payment. It uses the member registration review component to present personal data, contact information, address details, secondary memberships, and the bottom action bar shown in the reference image 1777781281647-hz7g5mgy2b8.jpeg.",
+    "isView": true
+  }
+]
