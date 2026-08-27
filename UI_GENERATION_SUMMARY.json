@@ -7,8 +7,14 @@
   },
   {
     "relativePath": "src/app/(shop)/members-selection/page.tsx",
-    "shortDescription": "Membership registration review page.",
-    "fullDescription": "Renders the new membership registration screen with a two-step progress sidebar, reviewed member information blocks, contextual actions, and a payment call-to-action. The view uses the shared NewMembershipRegistration component to keep the membership onboarding presentation reusable across future flows.",
+    "shortDescription": "Membership profile lookup page.",
+    "fullDescription": "Renders the membership landing view for starting a new registration or checking pending processes, then guides staff to search for an existing member profile by name, phone, email, or membership ID. The screen uses the shared MembershipProfileSearch component to keep the membership lookup experience reusable for reference image 1777781280776-hz85g27aqjj.jpeg.",
     "isView": true
+  },
+  {
+    "relativePath": "src/components/features/membership/membership-profile-search.tsx",
+    "shortDescription": "Reusable membership search and quick-action landing component.",
+    "fullDescription": "Builds the membership management landing interface with a compact branded top bar, paired quick-action cards for new memberships and pending processes, and a centered search form for locating member records. It accepts reuse in future membership onboarding or CRM-like views that need the same lookup-first layout and visual hierarchy from reference image 1777781280776-hz85g27aqjj.jpeg.",
+    "isView": false
   }
 ]
