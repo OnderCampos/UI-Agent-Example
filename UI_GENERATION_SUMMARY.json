@@ -1,0 +1,44 @@
+[
+  {
+    "relativePath": "src/components/features/membership/new-membership-registration.tsx",
+    "shortDescription": "Reusable new membership registration detail layout.",
+    "fullDescription": "Composes a membership registration review interface with a two-step sidebar, personal data header, contact and address sections, secondary membership cards, and a sticky action footer. It supports reuse for member onboarding or edit-review flows by accepting shared button, icon, and layout patterns already used across the application.",
+    "isView": false
+  },
+  {
+    "relativePath": "src/components/features/membership/membership-search-hub.tsx",
+    "shortDescription": "Reusable membership lookup and entry hub.",
+    "fullDescription": "Renders the membership access hub with a branded header, two primary action cards for creating a new membership or opening pending work, and a centered search form for locating existing member records by name, phone, email, or membership number. The component can be reused for customer service and in-club membership intake flows that need a lightweight starting point before registration or profile retrieval.",
+    "isView": false
+  },
+  {
+    "relativePath": "src/app/(shop)/members-selection/page.tsx",
+    "shortDescription": "Membership search and registration entry screen.",
+    "fullDescription": "Displays a membership management entry screen with top location controls, large action cards for starting a new membership or reviewing pending processes, and a search section for finding existing member profiles before registration. The view uses the shared MembershipSearchHub component to present the branded header, action selection area, and centered lookup form.",
+    "isView": true
+  },
+  {
+    "relativePath": "src/components/features/membership/membership-verification-dialog.tsx",
+    "shortDescription": "Reusable membership verification dialog with member code states.",
+    "fullDescription": "Presents a centered verification dialog for confirming multiple memberships through phone or email contacts. It includes a title block, a list of member rows with verified and pending states, four-digit code placeholders, resend code actions, and a primary completion button so other membership flows can reuse the same confirmation overlay with a custom member list and controlled open state.",
+    "isView": false
+  },
+  {
+    "relativePath": "src/app/(shop)/members-verification/page.tsx",
+    "shortDescription": "Membership verification overlay preview screen.",
+    "fullDescription": "Displays a dimmed application background with the shared MembershipVerificationDialog centered as the main interaction. The view is useful for membership service flows that need to review verified contacts, enter pending verification codes, and finalize the process using the reusable verification dialog component.",
+    "isView": true
+  },
+  {
+    "relativePath": "src/components/features/membership/secondary-membership-form.tsx",
+    "shortDescription": "Reusable secondary membership registration form.",
+    "fullDescription": "Builds a full membership intake form for adding a secondary member under an existing primary account. It includes a branded top bar, a sidebar step indicator, grouped personal data, contact and address sections, photo placeholder, select-style inputs, optional consent checkboxes, and a footer with navigation and submission actions so future membership views can reuse the same sectioned form structure.",
+    "isView": false
+  },
+  {
+    "relativePath": "src/app/(shop)/members-secondary/page.tsx",
+    "shortDescription": "Secondary membership creation screen.",
+    "fullDescription": "Displays the secondary membership creation interface for a primary member, including account context at the top, a structured registration form, and bottom actions for saving progress or adding the member. The view uses the shared SecondaryMembershipForm component to present personal data, contact, and address inputs in a multi-section membership workflow.",
+    "isView": true
+  }
+]
