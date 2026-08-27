@@ -1,0 +1,14 @@
+[
+  {
+    "relativePath": "src/components/features/membership/new-membership-registration.tsx",
+    "shortDescription": "Reusable membership registration review screen component.",
+    "fullDescription": "Composes the new membership registration review interface shown before payment, including the step sidebar, personal data summary, contact and address sections, secondary membership cards, and footer actions. Reuses the shared button styles and can be embedded by any membership onboarding or account flow that needs a read-only review state for reference image 1777781281647-hz7g5mgy2b8.jpeg.",
+    "isView": false
+  },
+  {
+    "relativePath": "src/app/(shop)/members-selection/page.tsx",
+    "shortDescription": "Membership registration review page.",
+    "fullDescription": "Renders the new membership registration screen with a two-step progress sidebar, reviewed member information blocks, contextual actions, and a payment call-to-action. The view uses the shared NewMembershipRegistration component to keep the membership onboarding presentation reusable across future flows.",
+    "isView": true
+  }
+]
