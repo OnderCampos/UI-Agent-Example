@@ -1,0 +1,14 @@
+[
+  {
+    "relativePath": "src/components/features/membership/new-membership-registration-view.tsx",
+    "shortDescription": "Reusable membership registration review view",
+    "fullDescription": "Reusable membership registration review interface styled for the PriceSmart flow. It presents a two-step sidebar, personal data summary with member photo, contact details, address information, secondary membership cards, a floating capture action, and footer actions for returning home, saving changes, or continuing to payment. The composition is reusable for onboarding and membership renewal review screens that need the same sectioned summary layout.",
+    "isView": false
+  },
+  {
+    "relativePath": "src/app/(shop)/membership/page.tsx",
+    "shortDescription": "New membership registration page",
+    "fullDescription": "Screen for reviewing a new PriceSmart membership before payment. The page renders the shared NewMembershipRegistrationView component and includes the step sidebar, personal data section, contact and address summaries, secondary memberships, capture member ID action, and bottom action bar that matches the provided membership registration reference.",
+    "isView": true
+  }
+]
