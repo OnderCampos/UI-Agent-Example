@@ -13,14 +13,20 @@
   },
   {
     "relativePath": "src/app/(shop)/new-membership/page.tsx",
-    "shortDescription": "Membership verification modal demo view.",
-    "fullDescription": "Renders the membership verification experience shown in 1777781279681-hbeprvw275k.jpeg as a centered modal-like overlay on a muted background. The view uses the shared MembershipVerificationDialog component to present member rows, verification status indicators, one-time code inputs, resend actions, and a final Done button.",
+    "shortDescription": "Secondary membership registration screen.",
+    "fullDescription": "Renders the secondary membership registration screen traced to 1777781280362-0m1yd6qajlo.jpeg. The view shows the primary member context, a membership data step rail, the shared NewSecondaryMembershipView form with personal data, contact information, address fields, capture actions, and footer navigation buttons for saving or adding the linked member.",
     "isView": true
   },
   {
     "relativePath": "src/components/features/membership/membership-verification-dialog.tsx",
     "shortDescription": "Reusable membership code verification dialog.",
     "fullDescription": "Displays a compact verification dialog for confirming multiple memberships by contact method, including a header icon, explanatory copy, verified and pending member states, four-digit code entry blocks, resend code links, and a primary completion action. The component is reusable across customer service or onboarding flows that need to verify several related members inside a modal or overlay context.",
+    "isView": false
+  },
+  {
+    "relativePath": "src/components/features/membership/new-secondary-membership-view.tsx",
+    "shortDescription": "Reusable secondary membership registration form layout.",
+    "fullDescription": "Builds the data-entry interface traced to 1777781280362-0m1yd6qajlo.jpeg for adding a new secondary membership linked to a primary member. The component includes the branded header, primary member summary, membership data step sidebar, photo placeholder, grouped personal, contact, and address form fields, decline checkboxes, disabled and active action states, and footer controls that can be reused in future membership onboarding views.",
     "isView": false
   }
 ]
