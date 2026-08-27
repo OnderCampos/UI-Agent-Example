@@ -6,9 +6,15 @@
     "isView": false
   },
   {
+    "relativePath": "src/components/features/membership/membership-search-hub.tsx",
+    "shortDescription": "Reusable membership lookup and entry hub.",
+    "fullDescription": "Renders the membership access hub with a branded header, two primary action cards for creating a new membership or opening pending work, and a centered search form for locating existing member records by name, phone, email, or membership number. The component can be reused for customer service and in-club membership intake flows that need a lightweight starting point before registration or profile retrieval.",
+    "isView": false
+  },
+  {
     "relativePath": "src/app/(shop)/members-selection/page.tsx",
-    "shortDescription": "Membership registration review screen.",
-    "fullDescription": "Displays a membership registration review flow that summarizes personal information, contact details, address data, and linked secondary memberships before payment. The screen uses the shared NewMembershipRegistration component to render the branded top bars, progress sidebar, member summary sections, and footer actions.",
+    "shortDescription": "Membership search and registration entry screen.",
+    "fullDescription": "Displays a membership management entry screen with top location controls, large action cards for starting a new membership or reviewing pending processes, and a search section for finding existing member profiles before registration. The view uses the shared MembershipSearchHub component to present the branded header, action selection area, and centered lookup form.",
     "isView": true
   }
 ]

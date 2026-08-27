@@ -1,5 +1,5 @@
-import { NewMembershipRegistration } from "@/components/features/membership/new-membership-registration";
+import { MembershipSearchHub } from "@/components/features/membership/membership-search-hub";
 
 export default function MembersSelectionPage() {
-  return <NewMembershipRegistration />;
+  return <MembershipSearchHub />;
 }
