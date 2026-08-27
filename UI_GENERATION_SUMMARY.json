@@ -12,9 +12,15 @@
     "isView": false
   },
   {
+    "relativePath": "src/components/features/membership/membership-verification-dialog.tsx",
+    "shortDescription": "Reusable membership verification modal",
+    "fullDescription": "Reusable membership verification dialog based on reference image 1777781279681-hbeprvw275k.jpeg. It renders a centered modal over a muted slate backdrop, a compact membership verification header, member rows with avatars and contact details, verified and pending states, four-digit code placeholders, resend links, and a primary Done action. Other membership flows can reuse it whenever multiple contacts must be confirmed by code before continuing.",
+    "isView": false
+  },
+  {
     "relativePath": "src/app/(shop)/membership/page.tsx",
-    "shortDescription": "Membership search and intake page",
-    "fullDescription": "Screen for customer membership intake and profile lookup. The page uses the shared MembershipSearchView component to show the PriceSmart header, shortcut cards for new membership and pending process, explanatory copy, a search input with icon, and a disabled search CTA matching the provided membership search reference.",
+    "shortDescription": "Membership verification screen",
+    "fullDescription": "Screen for verifying membership contacts before completion. The page uses the shared MembershipVerificationDialog component to present the overlay backdrop, compact verification modal, verified and pending member rows, code entry placeholders, resend links, and the final Done button matching the provided membership verification reference.",
     "isView": true
   }
 ]

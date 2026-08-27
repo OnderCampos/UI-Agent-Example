@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
 
-import { MembershipSearchView } from "@/components/features/membership";
+import { MembershipVerificationDialog } from "@/components/features/membership";
 
 export const metadata: Metadata = {
-  title: "Membership Search",
-  description: "Locate an existing membership profile or start a new membership registration.",
+  title: "Membership Verification",
+  description: "Verify each member using confirmation codes sent to their registered contact information.",
 };
 
 export default function MembershipPage() {
-  return <MembershipSearchView />;
+  return <MembershipVerificationDialog />;
 }
