@@ -13,8 +13,14 @@
   },
   {
     "relativePath": "src/app/(shop)/new-membership/page.tsx",
-    "shortDescription": "Membership search and entry screen.",
-    "fullDescription": "Renders the membership management landing screen used to begin a new membership, review pending processes, or search for an existing member profile by name, phone, email, or membership number. The view uses the shared MembershipSearchView component to match the desktop-first service desk layout shown in 1777781280776-hz85g27aqjj.jpeg.",
+    "shortDescription": "Membership verification modal demo view.",
+    "fullDescription": "Renders the membership verification experience shown in 1777781279681-hbeprvw275k.jpeg as a centered modal-like overlay on a muted background. The view uses the shared MembershipVerificationDialog component to present member rows, verification status indicators, one-time code inputs, resend actions, and a final Done button.",
     "isView": true
+  },
+  {
+    "relativePath": "src/components/features/membership/membership-verification-dialog.tsx",
+    "shortDescription": "Reusable membership code verification dialog.",
+    "fullDescription": "Displays a compact verification dialog for confirming multiple memberships by contact method, including a header icon, explanatory copy, verified and pending member states, four-digit code entry blocks, resend code links, and a primary completion action. The component is reusable across customer service or onboarding flows that need to verify several related members inside a modal or overlay context.",
+    "isView": false
   }
 ]
