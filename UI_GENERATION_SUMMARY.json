@@ -1,0 +1,32 @@
+[
+  {
+    "relativePath": "src/components/features/membership/new-membership-registration-view.tsx",
+    "shortDescription": "Reusable membership registration review layout.",
+    "fullDescription": "Builds the new membership registration review interface traced to 1777781281647-hz7g5mgy2b8.jpeg, including the branded top bars, step sidebar, personal data summary, contact and address sections, secondary membership cards, and footer action bar. The component is reusable for membership onboarding or review flows that need a read-only summary with prominent navigation and action buttons.",
+    "isView": false
+  },
+  {
+    "relativePath": "src/components/features/membership/membership-search-view.tsx",
+    "shortDescription": "Reusable membership lookup landing layout.",
+    "fullDescription": "Builds the membership search landing interface traced to 1777781280776-hz85g27aqjj.jpeg, including the compact branded header, two large action tiles for starting a new membership or checking pending processes, and a centered membership lookup form with a disabled submit state. The component is reusable for customer service or onboarding flows that need a lightweight entry screen before opening detailed membership forms.",
+    "isView": false
+  },
+  {
+    "relativePath": "src/app/(shop)/new-membership/page.tsx",
+    "shortDescription": "Secondary membership registration screen.",
+    "fullDescription": "Renders the secondary membership registration screen traced to 1777781280362-0m1yd6qajlo.jpeg. The view shows the primary member context, a membership data step rail, the shared NewSecondaryMembershipView form with personal data, contact information, address fields, capture actions, and footer navigation buttons for saving or adding the linked member.",
+    "isView": true
+  },
+  {
+    "relativePath": "src/components/features/membership/membership-verification-dialog.tsx",
+    "shortDescription": "Reusable membership code verification dialog.",
+    "fullDescription": "Displays a compact verification dialog for confirming multiple memberships by contact method, including a header icon, explanatory copy, verified and pending member states, four-digit code entry blocks, resend code links, and a primary completion action. The component is reusable across customer service or onboarding flows that need to verify several related members inside a modal or overlay context.",
+    "isView": false
+  },
+  {
+    "relativePath": "src/components/features/membership/new-secondary-membership-view.tsx",
+    "shortDescription": "Reusable secondary membership registration form layout.",
+    "fullDescription": "Builds the data-entry interface traced to 1777781280362-0m1yd6qajlo.jpeg for adding a new secondary membership linked to a primary member. The component includes the branded header, primary member summary, membership data step sidebar, photo placeholder, grouped personal, contact, and address form fields, decline checkboxes, disabled and active action states, and footer controls that can be reused in future membership onboarding views.",
+    "isView": false
+  }
+]
