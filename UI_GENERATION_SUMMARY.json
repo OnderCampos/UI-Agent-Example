@@ -6,9 +6,15 @@
     "isView": false
   },
   {
+    "relativePath": "src/components/features/membership/membership-search-view.tsx",
+    "shortDescription": "Reusable membership lookup landing layout.",
+    "fullDescription": "Builds the membership search landing interface traced to 1777781280776-hz85g27aqjj.jpeg, including the compact branded header, two large action tiles for starting a new membership or checking pending processes, and a centered membership lookup form with a disabled submit state. The component is reusable for customer service or onboarding flows that need a lightweight entry screen before opening detailed membership forms.",
+    "isView": false
+  },
+  {
     "relativePath": "src/app/(shop)/new-membership/page.tsx",
-    "shortDescription": "New membership registration review screen.",
-    "fullDescription": "Renders the new membership screen for reviewing captured member information before moving to payment. The view uses the shared NewMembershipRegistrationView component to present personal details, contact information, address data, secondary memberships, and save or payment actions in a single desktop-first workflow.",
+    "shortDescription": "Membership search and entry screen.",
+    "fullDescription": "Renders the membership management landing screen used to begin a new membership, review pending processes, or search for an existing member profile by name, phone, email, or membership number. The view uses the shared MembershipSearchView component to match the desktop-first service desk layout shown in 1777781280776-hz85g27aqjj.jpeg.",
     "isView": true
   }
 ]
