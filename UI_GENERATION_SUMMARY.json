@@ -8,13 +8,19 @@
   {
     "relativePath": "src/components/features/membership/member-registration-review.tsx",
     "shortDescription": "Membership registration review layout.",
-    "fullDescription": "Reusable membership review component that renders the new membership confirmation screen from the reference image, including the top brand bars, left stepper, personal data, contact details, address section, secondary membership cards, and footer actions for saving or proceeding to payment.",
+    "fullDescription": "Reusable membership review component that renders the new membership confirmation screen, including the top brand bars, left stepper, personal data, contact details, address section, secondary membership cards, and footer actions for saving or proceeding to payment.",
+    "isView": false
+  },
+  {
+    "relativePath": "src/components/features/membership/member-membership-search.tsx",
+    "shortDescription": "Membership lookup landing component.",
+    "fullDescription": "Reusable membership landing component for account and enrollment flows. It renders the top PriceSmart brand bars, shortcut cards for creating a new membership or reviewing a pending process, and a centered member search form with a disabled submit state for searching by name, phone, email, or membership number as shown in reference image 1777781280776-hz85g27aqjj.jpeg.",
     "isView": false
   },
   {
     "relativePath": "src/app/(shop)/account/membership/page.tsx",
-    "shortDescription": "New membership review screen.",
-    "fullDescription": "Account view for reviewing a new membership before payment. It uses the member registration review component to present personal data, contact information, address details, secondary memberships, and the bottom action bar shown in the reference image 1777781281647-hz7g5mgy2b8.jpeg.",
+    "shortDescription": "Membership search and entry screen.",
+    "fullDescription": "Account membership view for starting the membership flow. It uses the reusable member membership search component to show entry cards for new membership and pending process handling plus the centered search area for locating an existing customer membership profile.",
     "isView": true
   }
 ]
