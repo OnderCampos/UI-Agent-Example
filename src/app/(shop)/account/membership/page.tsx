@@ -1,332 +1,269 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import Link from "next/link";
-import { 
-  CreditCard, 
-  Gift, 
-  Star, 
-  Truck, 
-  Percent,
-  Calendar,
-  AlertCircle,
-  ExternalLink,
-  RotateCcw,
-  Download,
-  Share2,
-  CheckCircle,
+import {
+  AlertTriangle,
+  BadgePlus,
+  Check,
+  ChevronDown,
+  CreditCard,
+  Search,
 } from "lucide-react";
 
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { useAuth } from "@/hooks/use-auth";
-import { MembershipCard, MembershipCardBack } from "@/components/features/membership";
+import { Card } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Separator } from "@/components/ui/separator";
 
-// Benefit icons mapping
-const benefitIcons: Record<string, typeof Gift> = {
-  discount: Percent,
-  freeShipping: Truck,
-  earlyAccess: Star,
-  exclusive: Gift,
-  other: CheckCircle,
-};
+type MembershipStatus = "Active" | "Cancelled";
 
-export default function MembershipPage() {
-  const { user } = useAuth();
-  const [showCardBack, setShowCardBack] = useState(false);
+interface MemberRecord {
+  member: string;
+  idNumber: string;
+  membershipNumber: string;
+  email: string;
+  phone: string;
+  status: MembershipStatus;
+}
 
-  const membership = user?.membership;
+const quickActions = [
+  {
+    title: "New Membership",
+    icon: BadgePlus,
+    emphasized: true,
+  },
+  {
+    title: "Pending process",
+    icon: AlertTriangle,
+    emphasized: false,
+  },
+];
 
-  // Calculate days until expiration
-  const expirationDate = membership 
-    ? new Date(membership.expirationDate)
-    : new Date();
-  const today = new Date();
-  const daysUntilExpiration = Math.ceil(
-    (expirationDate.getTime() - today.getTime()) / (1000 * 60 * 60 * 24)
-  );
-  const isExpiringSoon = daysUntilExpiration <= 30 && daysUntilExpiration > 0;
-  const isExpired = daysUntilExpiration <= 0;
+const memberRecords: MemberRecord[] = [
+  {
+    member: "Sarah Treviño",
+    idNumber: "************856F",
+    membershipNumber: "8596312475894",
+    email: "sarah.j@email.com",
+    phone: "+502 9874 5612",
+    status: "Active",
+  },
+  {
+    member: "Michael Treviño",
+    idNumber: "************459G",
+    membershipNumber: "8542135039750",
+    email: "nicolas.trevino@gmail.com",
+    phone: "+502 1234 5678",
+    status: "Active",
+  },
+  {
+    member: "Nicolas Treviño",
+    idNumber: "************123S",
+    membershipNumber: "25639885621471",
+    email: "mtrevinob@email.com",
+    phone: "+502 1472 5836",
+    status: "Cancelled",
+  },
+  {
+    member: "Emily Treviño",
+    idNumber: "************234E",
+    membershipNumber: "10254852306589",
+    email: "emily.davis.t@email.com",
+    phone: "+502 9638 5274",
+    status: "Active",
+  },
+];
 
-  if (!membership) {
-    return (
-      <div className="text-center py-12">
-        <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
-          <CreditCard className="w-8 h-8 text-gray-400" />
-        </div>
-        <h2 className="text-xl font-semibold text-gray-900 mb-2">
-          No Membership Found
-        </h2>
-        <p className="text-gray-600 mb-6 max-w-md mx-auto">
-          You don&apos;t have a PriceSmart membership linked to your account yet.
-          Link your existing membership or apply for a new one.
-        </p>
-        <div className="flex flex-col sm:flex-row gap-3 justify-center">
-          <Button className="bg-[#0052a1] hover:bg-[#003d7a]">
-            Link Existing Membership
-          </Button>
-          <Button variant="outline" className="border-[#0052a1] text-[#0052a1]">
-            Apply for Membership
-          </Button>
-        </div>
-      </div>
-    );
-  }
+function MembershipStatusBadge({ status }: { status: MembershipStatus }) {
+  const isActive = status === "Active";
 
   return (
-    <div className="space-y-8">
-      {/* Header */}
-      <div>
-        <h1 className="text-2xl font-bold text-gray-900">Membership</h1>
-        <p className="text-gray-600">Your PriceSmart membership details</p>
-      </div>
+    <Badge
+      variant="outline"
+      className={isActive
+        ? "rounded-md border-[#B7D77A] bg-[#E6F4BF] px-3 py-1 text-xs font-medium text-[#6C8B12]"
+        : "rounded-md border-[#EEC6BF] bg-[#FDEAE6] px-3 py-1 text-xs font-medium text-[#CC4B37]"
+      }
+    >
+      {status}
+    </Badge>
+  );
+}
 
-      {/* Expiration Warning */}
-      {isExpiringSoon && !isExpired && (
-        <div className="p-4 bg-yellow-50 border border-yellow-200 rounded-lg flex items-start gap-3">
-          <AlertCircle className="w-5 h-5 text-yellow-600 mt-0.5" />
-          <div>
-            <p className="font-medium text-yellow-800">
-              Your membership expires in {daysUntilExpiration} days
-            </p>
-            <p className="text-sm text-yellow-700 mt-1">
-              Renew now to continue enjoying your member benefits without interruption.
-            </p>
-            <Button 
-              size="sm" 
-              className="mt-3 bg-yellow-600 hover:bg-yellow-700"
-            >
-              Renew Membership
-            </Button>
-          </div>
-        </div>
-      )}
+export default function MembershipPage() {
+  const [query, setQuery] = useState("Treviño");
 
-      {isExpired && (
-        <div className="p-4 bg-red-50 border border-red-200 rounded-lg flex items-start gap-3">
-          <AlertCircle className="w-5 h-5 text-red-600 mt-0.5" />
-          <div>
-            <p className="font-medium text-red-800">
-              Your membership has expired
-            </p>
-            <p className="text-sm text-red-700 mt-1">
-              Renew your membership to access exclusive prices and benefits.
-            </p>
-            <Button 
-              size="sm" 
-              className="mt-3 bg-red-600 hover:bg-red-700"
-            >
-              Renew Now
-            </Button>
-          </div>
-        </div>
-      )}
+  const filteredRecords = useMemo(() => {
+    const normalizedQuery = query.trim().toLowerCase();
 
-      {/* Digital Membership Card */}
-      <div className="space-y-4">
-        <div className="flex items-center justify-between">
-          <h2 className="text-lg font-semibold text-gray-900">Digital Card</h2>
-          <div className="flex items-center gap-2">
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => setShowCardBack(!showCardBack)}
-              className="text-gray-600"
-            >
-              <RotateCcw className="w-4 h-4 mr-1" />
-              Flip Card
-            </Button>
-          </div>
-        </div>
+    if (!normalizedQuery) {
+      return memberRecords;
+    }
 
-        <div className="flex justify-center">
-          <div 
-            className="transition-transform duration-500 cursor-pointer"
-            style={{ 
-              transformStyle: "preserve-3d",
-              transform: showCardBack ? "rotateY(180deg)" : "rotateY(0deg)",
-            }}
-            onClick={() => setShowCardBack(!showCardBack)}
-          >
-            {!showCardBack ? (
-              <MembershipCard 
-                membership={membership} 
-                memberName={user?.fullName || "Member"} 
-              />
-            ) : (
-              <div style={{ transform: "rotateY(180deg)" }}>
-                <MembershipCardBack membership={membership} />
-              </div>
-            )}
-          </div>
-        </div>
+    return memberRecords.filter((record) =>
+      [
+        record.member,
+        record.idNumber,
+        record.membershipNumber,
+        record.email,
+        record.phone,
+        record.status,
+      ].some((value) => value.toLowerCase().includes(normalizedQuery))
+    );
+  }, [query]);
 
-        <p className="text-center text-sm text-gray-500">
-          Click the card to flip it. Show this at checkout or scan the barcode.
-        </p>
+  return (
+    <div className="min-h-[calc(100vh-220px)] bg-[#F8FAFC] -m-6 p-6 md:p-10">
+      <div className="mx-auto w-full max-w-[1120px]">
+        <div className="grid gap-5 md:grid-cols-2">
+          {quickActions.map((action) => {
+            const Icon = action.icon;
 
-        {/* Card Actions */}
-        <div className="flex justify-center gap-3">
-          <Button variant="outline" size="sm" className="text-gray-600">
-            <Download className="w-4 h-4 mr-2" />
-            Save to Wallet
-          </Button>
-          <Button variant="outline" size="sm" className="text-gray-600">
-            <Share2 className="w-4 h-4 mr-2" />
-            Share
-          </Button>
-        </div>
-      </div>
-
-      {/* Membership Details */}
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        <div className="bg-gray-50 rounded-lg p-4">
-          <p className="text-sm text-gray-500">Member ID</p>
-          <p className="text-lg font-semibold text-gray-900 font-mono">
-            {membership.memberId}
-          </p>
-        </div>
-        <div className="bg-gray-50 rounded-lg p-4">
-          <p className="text-sm text-gray-500">Type</p>
-          <p className="text-lg font-semibold text-gray-900 capitalize">
-            {membership.type}
-          </p>
-        </div>
-        <div className="bg-gray-50 rounded-lg p-4">
-          <p className="text-sm text-gray-500">Status</p>
-          <p className={`text-lg font-semibold capitalize ${
-            membership.status === "active" ? "text-green-600" : "text-red-600"
-          }`}>
-            {membership.status}
-          </p>
-        </div>
-        <div className="bg-gray-50 rounded-lg p-4">
-          <p className="text-sm text-gray-500">Points Balance</p>
-          <p className="text-lg font-semibold text-[#0052a1]">
-            {membership.points?.toLocaleString() || 0}
-          </p>
-        </div>
-      </div>
-
-      {/* Member Since / Expires */}
-      <div className="grid gap-4 sm:grid-cols-2">
-        <div className="flex items-center gap-3 p-4 border rounded-lg">
-          <div className="w-10 h-10 rounded-full bg-[#0052a1]/10 flex items-center justify-center">
-            <Calendar className="w-5 h-5 text-[#0052a1]" />
-          </div>
-          <div>
-            <p className="text-sm text-gray-500">Member Since</p>
-            <p className="font-medium text-gray-900">
-              {new Date(membership.startDate).toLocaleDateString("en-US", {
-                month: "long",
-                day: "numeric",
-                year: "numeric",
-              })}
-            </p>
-          </div>
-        </div>
-        <div className="flex items-center gap-3 p-4 border rounded-lg">
-          <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
-            isExpired 
-              ? "bg-red-100" 
-              : isExpiringSoon 
-                ? "bg-yellow-100" 
-                : "bg-green-100"
-          }`}>
-            <Calendar className={`w-5 h-5 ${
-              isExpired 
-                ? "text-red-600" 
-                : isExpiringSoon 
-                  ? "text-yellow-600" 
-                  : "text-green-600"
-            }`} />
-          </div>
-          <div>
-            <p className="text-sm text-gray-500">Expires</p>
-            <p className={`font-medium ${
-              isExpired 
-                ? "text-red-600" 
-                : isExpiringSoon 
-                  ? "text-yellow-600" 
-                  : "text-gray-900"
-            }`}>
-              {expirationDate.toLocaleDateString("en-US", {
-                month: "long",
-                day: "numeric",
-                year: "numeric",
-              })}
-            </p>
-          </div>
-        </div>
-      </div>
-
-      {/* Benefits */}
-      {membership.benefits && membership.benefits.length > 0 && (
-        <div>
-          <h2 className="text-lg font-semibold text-gray-900 mb-4">
-            Your Benefits
-          </h2>
-          <div className="grid gap-4 sm:grid-cols-2">
-            {membership.benefits.map((benefit) => {
-              const IconComponent = benefitIcons[benefit.type] || Gift;
-              return (
-                <div 
-                  key={benefit.id}
-                  className="flex items-start gap-3 p-4 border rounded-lg hover:shadow-sm transition-shadow"
+            return (
+              <Card
+                key={action.title}
+                className={`rounded-[10px] border border-[#D8E0EA] px-8 py-8 shadow-none ${
+                  action.emphasized ? "bg-[#F1F2F4]" : "bg-white"
+                }`}
+              >
+                <button
+                  type="button"
+                  className="flex w-full items-center gap-5 text-left transition-opacity hover:opacity-90"
                 >
-                  <div className="w-10 h-10 rounded-full bg-[#f5a623]/10 flex items-center justify-center flex-shrink-0">
-                    <IconComponent className="w-5 h-5 text-[#f5a623]" />
-                  </div>
-                  <div>
-                    <h3 className="font-medium text-gray-900">{benefit.name}</h3>
-                    <p className="text-sm text-gray-600">{benefit.description}</p>
-                    {benefit.value && (
-                      <p className="text-sm font-semibold text-[#0052a1] mt-1">
-                        {benefit.type === "discount" ? `${benefit.value}% off` : benefit.value}
-                      </p>
-                    )}
-                  </div>
-                </div>
-              );
-            })}
-          </div>
+                  <span className="flex h-[56px] w-[56px] items-center justify-center rounded-full border-2 border-[#3258C7] text-[#3258C7]">
+                    <Icon className="h-6 w-6 stroke-[1.9]" />
+                  </span>
+                  <span className="text-[22px] font-semibold tracking-[-0.02em] text-[#223D7D] md:text-[24px]">
+                    {action.title}
+                  </span>
+                </button>
+              </Card>
+            );
+          })}
         </div>
-      )}
 
-      {/* Savings Summary */}
-      <div className="bg-gradient-to-r from-[#0052a1] to-[#003d7a] rounded-xl p-6 text-white">
-        <h2 className="text-lg font-semibold mb-4">Your Savings This Year</h2>
-        <div className="grid gap-4 sm:grid-cols-3">
-          <div>
-            <p className="text-white/70 text-sm">Total Saved</p>
-            <p className="text-3xl font-bold">$1,234.56</p>
-          </div>
-          <div>
-            <p className="text-white/70 text-sm">Orders Placed</p>
-            <p className="text-3xl font-bold">24</p>
-          </div>
-          <div>
-            <p className="text-white/70 text-sm">Points Earned</p>
-            <p className="text-3xl font-bold">5,000</p>
-          </div>
-        </div>
-      </div>
+        <Separator className="my-6 bg-[#D8E0EA]" />
 
-      {/* Quick Links */}
-      <div className="flex flex-wrap gap-3">
-        <Link href="/account/orders">
-          <Button variant="outline" className="border-gray-300">
-            View Order History
-            <ExternalLink className="w-4 h-4 ml-2" />
-          </Button>
-        </Link>
-        <Button variant="outline" className="border-gray-300">
-          Membership Terms
-          <ExternalLink className="w-4 h-4 ml-2" />
-        </Button>
-        <Button variant="outline" className="border-gray-300">
-          Contact Support
-          <ExternalLink className="w-4 h-4 ml-2" />
-        </Button>
+        <section className="px-2 pb-4 pt-10 md:px-6">
+          <div className="max-w-[840px]">
+            <h1 className="text-[28px] font-medium tracking-[-0.02em] text-[#223D7D]">
+              Search for membership
+            </h1>
+            <p className="mt-2 text-[15px] leading-7 text-[#445A88]">
+              Search for an existing profile before creating a new membership. Enter the customer&apos;s last name, phone number, email, or membership ID.
+            </p>
+          </div>
+
+          <form
+            className="mt-7 flex flex-col items-center gap-3"
+            role="search"
+            onSubmit={(event) => event.preventDefault()}
+          >
+            <div className="relative w-full max-w-[520px]">
+              <Search className="pointer-events-none absolute left-4 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-[#64748B]" />
+              <Input
+                type="search"
+                value={query}
+                onChange={(event) => setQuery(event.target.value)}
+                className="h-[42px] rounded-[10px] border-[#D7DDE6] bg-white pl-11 pr-4 text-[16px] text-[#334155] shadow-none placeholder:text-[#94A3B8] focus-visible:ring-1 focus-visible:ring-[#6366F1]"
+              />
+            </div>
+            <Button
+              type="submit"
+              className="h-[42px] rounded-[6px] bg-[#223D7D] px-6 text-[15px] font-semibold text-white hover:bg-[#1B3166]"
+            >
+              Search Membership
+            </Button>
+          </form>
+
+          <div className="mt-6 overflow-hidden rounded-[12px] border border-[#DFE5EC] bg-white">
+            <div className="overflow-x-auto">
+              <table className="min-w-full border-collapse text-left">
+                <thead>
+                  <tr className="border-b border-[#E5EAF0] bg-white text-[12px] font-medium text-[#5B677D]">
+                    {[
+                      "Member",
+                      "ID Number",
+                      "Membership number",
+                      "Email address",
+                      "Phone number",
+                      "Membership status",
+                    ].map((label) => (
+                      <th key={label} className="whitespace-nowrap px-4 py-3 first:pl-5">
+                        <span className="inline-flex items-center gap-1.5">
+                          {label}
+                          <ChevronDown className="h-4 w-4 rotate-180 stroke-[2.2] text-[#606B80]" />
+                        </span>
+                      </th>
+                    ))}
+                    <th className="whitespace-nowrap px-4 py-3 pr-5 text-left">Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {filteredRecords.map((record, index) => (
+                    <tr
+                      key={`${record.member}-${record.membershipNumber}`}
+                      className={index !== filteredRecords.length - 1 ? "border-b border-[#E5EAF0]" : ""}
+                    >
+                      <td className="whitespace-nowrap px-4 py-6 text-[16px] text-[#5C667A] first:pl-5">
+                        {record.member}
+                      </td>
+                      <td className="whitespace-nowrap px-4 py-6 text-[16px] text-[#5C667A]">
+                        {record.idNumber}
+                      </td>
+                      <td className="whitespace-nowrap px-4 py-6 text-[16px] text-[#5C667A]">
+                        {record.membershipNumber}
+                      </td>
+                      <td className="whitespace-nowrap px-4 py-6 text-[16px] text-[#5C667A]">
+                        {record.email}
+                      </td>
+                      <td className="whitespace-nowrap px-4 py-6 text-[16px] text-[#5C667A]">
+                        {record.phone}
+                      </td>
+                      <td className="whitespace-nowrap px-4 py-6">
+                        <MembershipStatusBadge status={record.status} />
+                      </td>
+                      <td className="whitespace-nowrap px-4 py-6 pr-5">
+                        <Link
+                          href="#"
+                          className="text-[15px] font-medium text-[#60A5FA] transition-colors hover:text-[#3B82F6]"
+                        >
+                          View membership
+                        </Link>
+                      </td>
+                    </tr>
+                  ))}
+                  {filteredRecords.length === 0 && (
+                    <tr>
+                      <td colSpan={7} className="px-5 py-10">
+                        <div className="flex flex-col items-center justify-center gap-3 text-center">
+                          <span className="flex h-12 w-12 items-center justify-center rounded-full bg-[#EEF2FF] text-[#6366F1]">
+                            <CreditCard className="h-6 w-6" />
+                          </span>
+                          <div>
+                            <h2 className="text-lg font-semibold text-[#223D7D]">No matching memberships</h2>
+                            <p className="mt-1 text-sm text-[#64748B]">
+                              Try a different search term or create a new membership profile.
+                            </p>
+                          </div>
+                          <Button
+                            type="button"
+                            className="mt-1 h-10 rounded-[6px] bg-[#223D7D] px-5 text-sm font-semibold text-white hover:bg-[#1B3166]"
+                          >
+                            <Check className="h-4 w-4" />
+                            Create Membership
+                          </Button>
+                        </div>
+                      </td>
+                    </tr>
+                  )}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
       </div>
     </div>
   );
