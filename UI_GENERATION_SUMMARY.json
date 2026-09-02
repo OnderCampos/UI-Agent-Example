@@ -1,0 +1,8 @@
+[
+  {
+    "relativePath": "src/app/(shop)/account/membership/page.tsx",
+    "shortDescription": "Membership registration and lookup screen.",
+    "fullDescription": "Account membership screen that presents two primary actions for creating a new membership or reviewing pending processes, followed by a centered search section for locating an existing member profile by name, phone, email, or membership number. The view uses shared button and input components and includes a compact branded header with location, country, and language context.",
+    "isView": true
+  }
+]
