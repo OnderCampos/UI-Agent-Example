@@ -1,333 +1,225 @@
 "use client";
 
-import { useState } from "react";
-import Link from "next/link";
-import { 
-  CreditCard, 
-  Gift, 
-  Star, 
-  Truck, 
-  Percent,
-  Calendar,
-  AlertCircle,
-  ExternalLink,
-  RotateCcw,
-  Download,
-  Share2,
-  CheckCircle,
+import {
+  AlertTriangle,
+  ChevronDown,
+  CreditCard,
+  Globe,
+  MapPin,
+  Search,
 } from "lucide-react";
-
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { useAuth } from "@/hooks/use-auth";
-import { MembershipCard, MembershipCardBack } from "@/components/features/membership";
+import { Input } from "@/components/ui/input";
 
-// Benefit icons mapping
-const benefitIcons: Record<string, typeof Gift> = {
-  discount: Percent,
-  freeShipping: Truck,
-  earlyAccess: Star,
-  exclusive: Gift,
-  other: CheckCircle,
-};
+const actionCards = [
+  {
+    title: "New Membership",
+    icon: CreditCard,
+    featured: true,
+  },
+  {
+    title: "Pending process",
+    icon: AlertTriangle,
+    featured: false,
+  },
+];
+
+const memberRows = [
+  {
+    member: "Sarah Treviño",
+    idNumber: "**************856F",
+    membershipNumber: "8596312475894",
+    email: "sarah.j@email.com",
+    phone: "+502 9874 5612",
+    status: "Active",
+    tone: "active",
+  },
+  {
+    member: "Michael Treviño",
+    idNumber: "**************459G",
+    membershipNumber: "8542135039750",
+    email: "nicolas.trevino@gmail.com",
+    phone: "+502 1234 5678",
+    status: "Active",
+    tone: "active",
+  },
+  {
+    member: "Nicolas Treviño",
+    idNumber: "**************123S",
+    membershipNumber: "25639885621471",
+    email: "mtrevinob@email.com",
+    phone: "+502 1472 5836",
+    status: "Cancelled",
+    tone: "cancelled",
+  },
+  {
+    member: "Emily Treviño",
+    idNumber: "**************234E",
+    membershipNumber: "10254852306589",
+    email: "emily.davis.t@email.com",
+    phone: "+502 9638 5274",
+    status: "Active",
+    tone: "active",
+  },
+] as const;
+
+const tableHeaders = [
+  "Member",
+  "ID Number",
+  "Membership number",
+  "Email address",
+  "Phone number",
+  "Membership status",
+  "Actions",
+] as const;
 
 export default function MembershipPage() {
-  const { user } = useAuth();
-  const [showCardBack, setShowCardBack] = useState(false);
-
-  const membership = user?.membership;
-
-  // Calculate days until expiration
-  const expirationDate = membership 
-    ? new Date(membership.expirationDate)
-    : new Date();
-  const today = new Date();
-  const daysUntilExpiration = Math.ceil(
-    (expirationDate.getTime() - today.getTime()) / (1000 * 60 * 60 * 24)
-  );
-  const isExpiringSoon = daysUntilExpiration <= 30 && daysUntilExpiration > 0;
-  const isExpired = daysUntilExpiration <= 0;
-
-  if (!membership) {
-    return (
-      <div className="text-center py-12">
-        <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
-          <CreditCard className="w-8 h-8 text-gray-400" />
-        </div>
-        <h2 className="text-xl font-semibold text-gray-900 mb-2">
-          No Membership Found
-        </h2>
-        <p className="text-gray-600 mb-6 max-w-md mx-auto">
-          You don&apos;t have a PriceSmart membership linked to your account yet.
-          Link your existing membership or apply for a new one.
-        </p>
-        <div className="flex flex-col sm:flex-row gap-3 justify-center">
-          <Button className="bg-[#0052a1] hover:bg-[#003d7a]">
-            Link Existing Membership
-          </Button>
-          <Button variant="outline" className="border-[#0052a1] text-[#0052a1]">
-            Apply for Membership
-          </Button>
-        </div>
-      </div>
-    );
-  }
-
   return (
-    <div className="space-y-8">
-      {/* Header */}
-      <div>
-        <h1 className="text-2xl font-bold text-gray-900">Membership</h1>
-        <p className="text-gray-600">Your PriceSmart membership details</p>
-      </div>
+    <div className="min-h-screen bg-[#F8FAFC] font-[Inter,sans-serif] text-[#0F172A]">
+      <header className="bg-[#1E336E] text-white">
+        <div className="mx-auto flex h-[58px] w-full max-w-[1080px] items-center justify-between px-6 lg:px-8">
+          <div className="flex items-center gap-2 text-[19px] font-bold tracking-[-0.02em]">
+            <span className="text-[#F97316]">✦</span>
+            <span>PriceSmart</span>
+          </div>
 
-      {/* Expiration Warning */}
-      {isExpiringSoon && !isExpired && (
-        <div className="p-4 bg-yellow-50 border border-yellow-200 rounded-lg flex items-start gap-3">
-          <AlertCircle className="w-5 h-5 text-yellow-600 mt-0.5" />
-          <div>
-            <p className="font-medium text-yellow-800">
-              Your membership expires in {daysUntilExpiration} days
-            </p>
-            <p className="text-sm text-yellow-700 mt-1">
-              Renew now to continue enjoying your member benefits without interruption.
-            </p>
-            <Button 
-              size="sm" 
-              className="mt-3 bg-yellow-600 hover:bg-yellow-700"
-            >
-              Renew Membership
-            </Button>
+          <div className="hidden items-center gap-7 text-[14px] font-medium md:flex">
+            <div className="flex items-center gap-2 text-white/95">
+              <MapPin className="h-4 w-4" />
+              <span>Miraflores</span>
+            </div>
+            <div className="flex items-center gap-2 text-white/95">
+              <span className="text-base leading-none">🌐</span>
+              <span>Guatemala</span>
+              <ChevronDown className="h-4 w-4" />
+            </div>
+            <div className="flex items-center gap-2 text-white/95">
+              <Globe className="h-4 w-4" />
+              <span>English</span>
+              <ChevronDown className="h-4 w-4" />
+            </div>
           </div>
         </div>
-      )}
+        <div className="h-[35px] bg-[#214CB8]" />
+      </header>
 
-      {isExpired && (
-        <div className="p-4 bg-red-50 border border-red-200 rounded-lg flex items-start gap-3">
-          <AlertCircle className="w-5 h-5 text-red-600 mt-0.5" />
-          <div>
-            <p className="font-medium text-red-800">
-              Your membership has expired
+      <main className="mx-auto max-w-[1080px] px-6 pb-24 pt-6 lg:px-8">
+        <section className="grid gap-6 md:grid-cols-2">
+          {actionCards.map((card) => {
+            const Icon = card.icon;
+
+            return (
+              <button
+                key={card.title}
+                type="button"
+                className={[
+                  "flex min-h-[120px] items-center gap-6 rounded-[8px] border px-8 text-left transition-colors",
+                  card.featured
+                    ? "border-transparent bg-[#ECEEF2]"
+                    : "border-[#D8E0EA] bg-white hover:bg-[#F8FAFC]",
+                ].join(" ")}
+              >
+                <span className="flex h-14 w-14 items-center justify-center rounded-full border-2 border-[#3163DB] text-[#3163DB]">
+                  <Icon className="h-7 w-7" strokeWidth={1.7} />
+                </span>
+                <span className="text-[20px] font-semibold tracking-[-0.02em] text-[#233F86]">
+                  {card.title}
+                </span>
+              </button>
+            );
+          })}
+        </section>
+
+        <div className="mt-6 border-t border-[#E2E8F0]" />
+
+        <section className="px-6 py-14">
+          <div className="max-w-[900px]">
+            <h1 className="text-[24px] font-medium tracking-[-0.02em] text-[#233F86]">
+              Search for membership
+            </h1>
+            <p className="mt-2 text-[15px] leading-[1.5] text-[#475569]">
+              Search for an existing profile before creating a new membership. Enter the customer&apos;s
+              last name, phone number, email, or membership ID.
             </p>
-            <p className="text-sm text-red-700 mt-1">
-              Renew your membership to access exclusive prices and benefits.
-            </p>
-            <Button 
-              size="sm" 
-              className="mt-3 bg-red-600 hover:bg-red-700"
-            >
-              Renew Now
-            </Button>
           </div>
-        </div>
-      )}
 
-      {/* Digital Membership Card */}
-      <div className="space-y-4">
-        <div className="flex items-center justify-between">
-          <h2 className="text-lg font-semibold text-gray-900">Digital Card</h2>
-          <div className="flex items-center gap-2">
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => setShowCardBack(!showCardBack)}
-              className="text-gray-600"
-            >
-              <RotateCcw className="w-4 h-4 mr-1" />
-              Flip Card
-            </Button>
-          </div>
-        </div>
-
-        <div className="flex justify-center">
-          <div 
-            className="transition-transform duration-500 cursor-pointer"
-            style={{ 
-              transformStyle: "preserve-3d",
-              transform: showCardBack ? "rotateY(180deg)" : "rotateY(0deg)",
-            }}
-            onClick={() => setShowCardBack(!showCardBack)}
-          >
-            {!showCardBack ? (
-              <MembershipCard 
-                membership={membership} 
-                memberName={user?.fullName || "Member"} 
+          <div className="mt-6 flex flex-col items-center gap-3">
+            <div className="relative w-full max-w-[434px]">
+              <Search className="pointer-events-none absolute left-4 top-1/2 h-4.5 w-4.5 -translate-y-1/2 text-[#64748B]" />
+              <Input
+                type="text"
+                defaultValue="Treviño"
+                className="h-[42px] rounded-[10px] border-[#D7DEE8] bg-white pl-11 pr-4 text-[15px] text-[#334155] shadow-none placeholder:text-[#64748B] focus-visible:ring-1 focus-visible:ring-[#6366F1]"
               />
-            ) : (
-              <div style={{ transform: "rotateY(180deg)" }}>
-                <MembershipCardBack membership={membership} />
-              </div>
-            )}
-          </div>
-        </div>
+            </div>
 
-        <p className="text-center text-sm text-gray-500">
-          Click the card to flip it. Show this at checkout or scan the barcode.
-        </p>
+            <Button
+              type="button"
+              className="h-[34px] rounded-[6px] bg-[#243C84] px-6 text-[15px] font-semibold text-white hover:bg-[#1E326E]"
+            >
+              Search Membership
+            </Button>
+          </div>
 
-        {/* Card Actions */}
-        <div className="flex justify-center gap-3">
-          <Button variant="outline" size="sm" className="text-gray-600">
-            <Download className="w-4 h-4 mr-2" />
-            Save to Wallet
-          </Button>
-          <Button variant="outline" size="sm" className="text-gray-600">
-            <Share2 className="w-4 h-4 mr-2" />
-            Share
-          </Button>
-        </div>
-      </div>
-
-      {/* Membership Details */}
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        <div className="bg-gray-50 rounded-lg p-4">
-          <p className="text-sm text-gray-500">Member ID</p>
-          <p className="text-lg font-semibold text-gray-900 font-mono">
-            {membership.memberId}
-          </p>
-        </div>
-        <div className="bg-gray-50 rounded-lg p-4">
-          <p className="text-sm text-gray-500">Type</p>
-          <p className="text-lg font-semibold text-gray-900 capitalize">
-            {membership.type}
-          </p>
-        </div>
-        <div className="bg-gray-50 rounded-lg p-4">
-          <p className="text-sm text-gray-500">Status</p>
-          <p className={`text-lg font-semibold capitalize ${
-            membership.status === "active" ? "text-green-600" : "text-red-600"
-          }`}>
-            {membership.status}
-          </p>
-        </div>
-        <div className="bg-gray-50 rounded-lg p-4">
-          <p className="text-sm text-gray-500">Points Balance</p>
-          <p className="text-lg font-semibold text-[#0052a1]">
-            {membership.points?.toLocaleString() || 0}
-          </p>
-        </div>
-      </div>
-
-      {/* Member Since / Expires */}
-      <div className="grid gap-4 sm:grid-cols-2">
-        <div className="flex items-center gap-3 p-4 border rounded-lg">
-          <div className="w-10 h-10 rounded-full bg-[#0052a1]/10 flex items-center justify-center">
-            <Calendar className="w-5 h-5 text-[#0052a1]" />
+          <div className="mt-6 overflow-hidden rounded-[12px] border border-[#E2E8F0] bg-white">
+            <div className="overflow-x-auto">
+              <table className="w-full min-w-[980px] border-collapse">
+                <thead>
+                  <tr className="border-b border-[#E2E8F0] bg-white">
+                    {tableHeaders.map((header) => (
+                      <th
+                        key={header}
+                        className="px-16 py-8 text-left text-[12px] font-medium text-[#475569] first:pl-16 last:pr-16"
+                      >
+                        <span className="inline-flex items-center gap-1 whitespace-nowrap">
+                          {header}
+                          {header !== "Actions" && <span className="text-[#64748B]">↓</span>}
+                        </span>
+                      </th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {memberRows.map((row, index) => (
+                    <tr
+                      key={`${row.member}-${row.membershipNumber}`}
+                      className={index !== memberRows.length - 1 ? "border-b border-[#E2E8F0]" : ""}
+                    >
+                      <td className="px-16 py-14 text-[14px] text-[#64748B]">{row.member}</td>
+                      <td className="px-16 py-14 text-[14px] text-[#475569]">{row.idNumber}</td>
+                      <td className="px-16 py-14 text-[14px] text-[#475569]">{row.membershipNumber}</td>
+                      <td className="px-16 py-14 text-[14px] text-[#64748B]">{row.email}</td>
+                      <td className="px-16 py-14 text-[14px] text-[#64748B]">{row.phone}</td>
+                      <td className="px-16 py-14">
+                        <Badge
+                          variant="outline"
+                          className={[
+                            "rounded-[6px] border px-3 py-1 text-[12px] font-medium shadow-none",
+                            row.tone === "active"
+                              ? "border-[#C4E28B] bg-[#E8F6C5] text-[#5B8A0E]"
+                              : "border-[#F5C7C1] bg-[#FEF2F2] text-[#DC2626]",
+                          ].join(" ")}
+                        >
+                          {row.status}
+                        </Badge>
+                      </td>
+                      <td className="px-16 py-14 text-[14px]">
+                        <button
+                          type="button"
+                          className="font-medium text-[#60A5FA] transition-colors hover:text-[#3B82F6]"
+                        >
+                          View membership
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
-          <div>
-            <p className="text-sm text-gray-500">Member Since</p>
-            <p className="font-medium text-gray-900">
-              {new Date(membership.startDate).toLocaleDateString("en-US", {
-                month: "long",
-                day: "numeric",
-                year: "numeric",
-              })}
-            </p>
-          </div>
-        </div>
-        <div className="flex items-center gap-3 p-4 border rounded-lg">
-          <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
-            isExpired 
-              ? "bg-red-100" 
-              : isExpiringSoon 
-                ? "bg-yellow-100" 
-                : "bg-green-100"
-          }`}>
-            <Calendar className={`w-5 h-5 ${
-              isExpired 
-                ? "text-red-600" 
-                : isExpiringSoon 
-                  ? "text-yellow-600" 
-                  : "text-green-600"
-            }`} />
-          </div>
-          <div>
-            <p className="text-sm text-gray-500">Expires</p>
-            <p className={`font-medium ${
-              isExpired 
-                ? "text-red-600" 
-                : isExpiringSoon 
-                  ? "text-yellow-600" 
-                  : "text-gray-900"
-            }`}>
-              {expirationDate.toLocaleDateString("en-US", {
-                month: "long",
-                day: "numeric",
-                year: "numeric",
-              })}
-            </p>
-          </div>
-        </div>
-      </div>
-
-      {/* Benefits */}
-      {membership.benefits && membership.benefits.length > 0 && (
-        <div>
-          <h2 className="text-lg font-semibold text-gray-900 mb-4">
-            Your Benefits
-          </h2>
-          <div className="grid gap-4 sm:grid-cols-2">
-            {membership.benefits.map((benefit) => {
-              const IconComponent = benefitIcons[benefit.type] || Gift;
-              return (
-                <div 
-                  key={benefit.id}
-                  className="flex items-start gap-3 p-4 border rounded-lg hover:shadow-sm transition-shadow"
-                >
-                  <div className="w-10 h-10 rounded-full bg-[#f5a623]/10 flex items-center justify-center flex-shrink-0">
-                    <IconComponent className="w-5 h-5 text-[#f5a623]" />
-                  </div>
-                  <div>
-                    <h3 className="font-medium text-gray-900">{benefit.name}</h3>
-                    <p className="text-sm text-gray-600">{benefit.description}</p>
-                    {benefit.value && (
-                      <p className="text-sm font-semibold text-[#0052a1] mt-1">
-                        {benefit.type === "discount" ? `${benefit.value}% off` : benefit.value}
-                      </p>
-                    )}
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      )}
-
-      {/* Savings Summary */}
-      <div className="bg-gradient-to-r from-[#0052a1] to-[#003d7a] rounded-xl p-6 text-white">
-        <h2 className="text-lg font-semibold mb-4">Your Savings This Year</h2>
-        <div className="grid gap-4 sm:grid-cols-3">
-          <div>
-            <p className="text-white/70 text-sm">Total Saved</p>
-            <p className="text-3xl font-bold">$1,234.56</p>
-          </div>
-          <div>
-            <p className="text-white/70 text-sm">Orders Placed</p>
-            <p className="text-3xl font-bold">24</p>
-          </div>
-          <div>
-            <p className="text-white/70 text-sm">Points Earned</p>
-            <p className="text-3xl font-bold">5,000</p>
-          </div>
-        </div>
-      </div>
-
-      {/* Quick Links */}
-      <div className="flex flex-wrap gap-3">
-        <Link href="/account/orders">
-          <Button variant="outline" className="border-gray-300">
-            View Order History
-            <ExternalLink className="w-4 h-4 ml-2" />
-          </Button>
-        </Link>
-        <Button variant="outline" className="border-gray-300">
-          Membership Terms
-          <ExternalLink className="w-4 h-4 ml-2" />
-        </Button>
-        <Button variant="outline" className="border-gray-300">
-          Contact Support
-          <ExternalLink className="w-4 h-4 ml-2" />
-        </Button>
-      </div>
+        </section>
+      </main>
     </div>
   );
 }
