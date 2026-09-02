@@ -2,7 +2,7 @@
   {
     "relativePath": "src/app/(shop)/account/membership/page.tsx",
     "shortDescription": "Membership customer lookup and registration hub view.",
-    "fullDescription": "Account membership view focused on customer membership intake. It presents two large action cards for starting a new membership or reviewing a pending process, followed by a centered search section for locating an existing member by name, phone, email, or membership ID. The view reuses shared Button, Card, Input, and Separator primitives inside the existing account layout.",
+    "fullDescription": "Account membership view focused on customer membership intake. It presents two large action cards for starting a new membership or reviewing a pending process, followed by a centered search section for locating an existing member by name, phone, email, or membership ID. The view reuses shared Button, Card, Input, and Separator primitives inside the existing account layout, and includes an empty-state panel that guides users to create a new membership when no profiles are found.",
     "isView": true
   }
 ]
